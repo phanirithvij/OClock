@@ -115,6 +115,10 @@ void keyPressed(){
     //og.update();
     println(og.offAngle);
   }
+  
+  if (key == 'x'){
+    saveFrame("images/line-######.png");
+  }
 
 }
 
