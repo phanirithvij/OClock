@@ -10,13 +10,21 @@ class Spike{
     this.gearP = gearP;
     this.angle = theta;
     this.initAngle = theta;
-    this.pos = new PVector(this.gearP.x + this.r * cos(this.angle), this.gearP.y + this.r * sin(this.angle));
+    this.pos = new PVector(
+      this.gearP.x + this.r * cos(this.angle),
+      this.gearP.y + this.r * sin(this.angle)
+    );
     println("new Spike");
   }
 
   void update(float newOffset){
     this.offsetA = newOffset;
     this.angle = this.initAngle + this.offsetA;
+    this.pos.x = this.gearP.x + this.r * cos(this.angle);
+    this.pos.y = this.gearP.y + this.r * sin(this.angle);
+  }
+  
+  void update(){
     this.pos.x = this.gearP.x + this.r * cos(this.angle);
     this.pos.y = this.gearP.y + this.r * sin(this.angle);
   }

@@ -5,13 +5,20 @@ Dial min;
 Dial hour;
 Dial sec;
 boolean displayClock = true;
+boolean displayImage = false;
 boolean doUpdate = true;
+boolean order = true;
 
 final int HOUR = 312334;
 final int MIN  = 321867;
-final int SEC  = 3187831;
+final int SEC  = 318783;
 
-float posX=0, posY=0;
+final float MIN_HAND_LEN = 290;
+final float SEC_HAND_LEN = 300;
+final float HOUR_HAND_LEN = 180;
+
+final float CENTERX = 961, CENTERY = 540;
+//final float CENTERX = 500, CENTERY = 500;
 
 void setup (){
   //fullScreen();
@@ -19,33 +26,29 @@ void setup (){
   background(0);
   oclock = loadImage("o'clock.png");
   //og = new Gear(displayWidth/2, displayHeight/2, 55, 65, 18);
-  og = new OGear(961, 540, 50, 67, 18);
-  gears = new Gear[9];
-  gears[0] = new Gear(949, 300, 43, 49, 8);
-  gears[1] = new Gear(913.8, 363.8, 10, 20, 4);
-  gears[2] = new Gear(882.4, 424.6, 44, 55, 14);
-  gears[3] = new Gear(964, 443, 22, 36, 9);
-  gears[4] = og;
-  gears[5] = new Gear(885.6, 618, 30, 48, 12);
-  gears[6] = new Gear(1022.8, 596.4, 13, 23, 6);
-  gears[7] = new Gear(932, 704, 38, 49, 15);
-  gears[8] = new Gear(862.8, 749.6, 19, 24, 9);
-  
+
+  initGears();
+
   min = new Dial(og.pos, 272, PI/6, MIN);
   hour = new Dial(og.pos, 171, 5*PI/6, HOUR);
   sec = new Dial(og.pos, 272, -PI/2, SEC);
   
-  min.value = minute();
-  sec.value = second();
-  hour.value = hour();
+  setHands();
 }
 
-// orange circle
-// r - 50 inner slices
-// r - 8  innermost light orange circle
-// r - 54 outer light orange circle
-// r - 67 outermost radius containing spikes inside
-// offsetAngle - 0.55850565 to align with image
+void initGears(){
+  og = new OGear(0, 0, 54.0, 67, 18);
+  gears = new Gear[9];
+  gears[0] = new Gear(-12, -240, 43, 49, 8);
+  gears[1] = new Gear(-47.2, -176.2, 10, 20, 4);
+  gears[2] = new Gear(-78.6, -115.4, 44, 55, 14);
+  gears[3] = new Gear(3.0, -97.0, 22, 36, 9);
+  gears[4] = og;
+  gears[5] = new Gear(-75.4, 78, 30, 48, 12);
+  gears[6] = new Gear(61.8, 56.4, 13, 23, 6);
+  gears[7] = new Gear(-29, 164, 38, 49, 15);
+  gears[8] = new Gear(-98.2, 209.6, 19, 24, 9);
+}
 
 // clock
 // r - 217 inner roman numeral touching circle
@@ -57,30 +60,38 @@ void setup (){
 // r - 295 outermost radius that contains the whole clock
 
 void draw(){
+  // must have background(0); to clear canvas
   background(0);
-  //image(oclock, posX, posY);
-  //image(oclock, 2, -11.4);
+  if (doUpdate){
+    og.update();
+    setHands();
+  }
+  if (displayImage)
+  image(oclock, 2, -11.4);
   if (displayClock){
+    if (order){
+      drawHands();      
+    }
     for (int i=0; i< 9; i++){
       gears[i].draw();
     }
+    if (!order){
+      drawHands();
+    }
   }
-  if (doUpdate)
-    og.update();
+}
 
+void setHands(){
   min.value = minute();
   sec.value = second();
   hour.value = hour();
-  
-  println(hour.value, min.value, sec.value);
+  //println(hour.value, min.value, sec.value);
+}
 
-  //push();
-  //rotate(-PI/2);
-  min.draw();
+void drawHands(){
   hour.draw();
+  min.draw();
   sec.draw();
-  //pop();
-
 }
 
 void keyPressed(){
@@ -104,14 +115,14 @@ void keyPressed(){
     for(int i=0; i < og.numSp; i++){
       og.spikes[i].r = og.oR;
     }
-    println(og.iR);
+    println(og.oR);
   } else if (key == 'p'){
     og.iR --;
     og.oR --;
     for(int i=0; i < og.numSp; i++){
       og.spikes[i].r = og.oR;
     }
-    println(og.iR);
+    println(og.oR);
   }
   if (key == 'u'){
     sec.angle += PI/360;
@@ -134,6 +145,9 @@ void keyPressed(){
     println(og.offAngle);
   }
   
+  if (key == 'm') order = !order;
+  if (key == 'n') displayImage = !displayImage;
+
   if (key == 'x'){
     saveFrame("images/line-######.png");
   }
@@ -143,17 +157,3 @@ void keyPressed(){
 void mousePressed(){
   println(mouseX, mouseY);
 }
-
-// 949, 300 - topmost gear (s - 8) (innerR - 4, innerR - 43, innerSpikeR - 49, outerSpikeR - 57)
-// 913.8, 363.8 - next small gear (s - 4) (innerR - 3, innerR - 10, outerSpikeR - 20)
-// 882.4, 424.6 - next gear 4 circle thing (s - 14) (innerR - 4, innerR - 44, outerSpikeR - 55)
-// 4 circle thing small circles - (r - 14) (856.4, 424.2) centers seperation - 26
-// 964, 443 - next (pokemon) (s - 9) (innerR - 4, outerR - 9, innerR - 22, outerSpikeR - 36)
-// above center
-// 961, 540 - center (s - 18)
-// below orange
-// 885.6, 618 - next left (s - 12) (innerR - 4, outerR - 15, innerR - 30, innerSpikeR - 38, outerSpikeR - 48)
-// 1022.8, 596.4 - next right small (s - 6) (innerSpikeR - 13, outerSpikeR - 23))
-// 932, 704 - next sharingan (s - 15) (innerR - 4, outerR - 17, innerR - 38, innerSpikeR - 49, outerSpikeR - 56)
-// 862.8, 749.6 - last gear (s - 9) (innerR - 4, outerR - 19, innerSpikeR - 24, outerSpikeR - 34)
-// last gear circles - (r - 5) (872, 758.2 - bottom right), (865.8, 738 - top), (850.8, 753.2 - bottom left)

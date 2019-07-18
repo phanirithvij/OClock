@@ -28,42 +28,41 @@ class Dial{
     end.y = this.start.y + this.r * sin(-this.angle);
   }
   
-  private int getColor(){
-    switch(this.type){
-      case MIN:
-        return 50;
-      case HOUR:
-        return 100;
-      case SEC:
-        return 200;
-      default:
-        return 0;
-    }
-  }
-
   void draw(){
-    int col = getColor();
-    println(this.type, col);
-    fill(col);
     float angle;
     if (this.type == MIN || this.type == SEC){
       angle = map(this.value, 0, 60, 0, 2*PI);
     } else {
       angle = map(this.value % 12, 0, 12, 0, 2*PI);
     }
-    
+
     push();
-    strokeWeight(8);
-    stroke(200);
+    // disable dial outline
+    strokeWeight(0);
+    //stroke(200);
     translate(this.start.x, this.start.y);
-    circle(0, 0, 20);
     rotate(angle - PI/2);
-    if (this.type == MIN)
-      line(0, 0, 200, 0);
-    else if (this.type == SEC)
-      line(0, 0, 210, 0);
-    else
-      line(0, 0, 100, 0);
+    if (this.type == MIN){
+      fill(48, 48, 42);
+      triangle(0, 10, 0, -10, MIN_HAND_LEN,0);
+      fill(0);
+      circle(0, 0, 30);
+      //line(0, 0, MIN_HAND_LEN, 0);
+    }
+    else if (this.type == SEC){
+      fill(48, 48, 42);
+      triangle(0, 10, 0, -10, SEC_HAND_LEN,0);
+      fill(100);
+      circle(0, 0, 20);
+      //line(0, 0, SEC_HAND_LEN, 0);
+    }
+    else if (this.type == HOUR){
+      fill(247, 100, 24);
+      triangle(0, 10, 0, -10, HOUR_HAND_LEN,0);
+      fill(0);
+      circle(0, 0, 10);
+      //line(0, 0, HOUR_HAND_LEN, 0);
+    }
     pop();
   }
 }
