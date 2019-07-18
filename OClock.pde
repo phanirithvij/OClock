@@ -1,13 +1,13 @@
 PImage oclock;
 Gear[] gears;
 Gear og;
-Dial min;
-Dial hour;
-Dial sec;
+Hand min;
+Hand hour;
+Hand sec;
 boolean displayClock = true;
 boolean displayImage = false;
 boolean doUpdate = true;
-boolean order = true;
+boolean order = false;
 
 final int HOUR = 312334;
 final int MIN  = 321867;
@@ -29,9 +29,9 @@ void setup (){
 
   initGears();
 
-  min = new Dial(og.pos, 272, PI/6, MIN);
-  hour = new Dial(og.pos, 171, 5*PI/6, HOUR);
-  sec = new Dial(og.pos, 272, -PI/2, SEC);
+  min = new Hand(og.pos, 272, PI/6, MIN);
+  hour = new Hand(og.pos, 171, 5*PI/6, HOUR);
+  sec = new Hand(og.pos, 272, -PI/2, SEC);
   
   setHands();
 }
@@ -60,7 +60,7 @@ void initGears(){
 // r - 295 outermost radius that contains the whole clock
 
 void draw(){
-  // must have background(0); to clear canvas
+  // must have a background in draw to clear canvas
   background(0);
   if (doUpdate){
     og.update();

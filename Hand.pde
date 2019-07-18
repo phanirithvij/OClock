@@ -1,4 +1,4 @@
-class Dial{
+class Hand{
   PVector start;
   Spike[] spikes;
   float offAngle = PI / 180;
@@ -8,8 +8,8 @@ class Dial{
   float value;
   PVector end;
   int type;
-  Dial(PVector orange, float r, float angle, int type){
-    println("new Dial");
+  Hand(PVector orange, float r, float angle, int type){
+    println("new Hand");
     this.start = orange;
     this.r = r;
     this.initAngle = angle;
@@ -37,7 +37,7 @@ class Dial{
     }
 
     push();
-    // disable dial outline
+    // disable Hand outline
     strokeWeight(0);
     //stroke(200);
     translate(this.start.x, this.start.y);

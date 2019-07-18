@@ -56,7 +56,7 @@ class Gear{
 
 class OGear extends Gear{
   PShape slice;
-  int numSlices = 9;
+  int numSlices = 12;
   float f = 0;
   float sliceR;
   float ya = (4*PI/360);
@@ -66,19 +66,21 @@ class OGear extends Gear{
   OGear(float x, float y, float ir, float or, int spkes){
     super(x, y, ir, or, spkes);
     this.sliceR = this.iR * 50/54;
-    
-    slice = createShape();
-    slice.beginShape();
-    slice.stroke(255);
-    slice.strokeWeight(5);
-    slice.noFill();
-    float xaa = 0;
-    // Calculate the path as a sine wave
-    for (float a = 0; a < TWO_PI; a += 0.1) {
-      slice.vertex(xaa, sin(a)*100);
-      xaa += 5;
-    }
-    slice.endShape();
+    slice = loadShape("sliceold.svg");
+    slice.scale(1);
+    //slice.scale(20);
+    //slice = createShape();
+    //slice.beginShape();
+    //slice.stroke(255);
+    //slice.strokeWeight(5);
+    //slice.noFill();
+    //float xaa = 0;
+    //// Calculate the path as a sine wave
+    //for (float a = 0; a < TWO_PI; a += 0.1) {
+    //  slice.vertex(xaa, sin(a)*100);
+    //  xaa += 5;
+    //}
+    //slice.endShape();
   }
 
   private void drawInterior(){
