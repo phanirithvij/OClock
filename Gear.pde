@@ -32,6 +32,26 @@ class Gear{
     //stroke(255);
     //fill(10, 2, 130);
     //circle(this.pos.x, this.pos.y, this.oR * 2);
+    fill(82, 82, 73);
+    circle(this.pos.x, this.pos.y, this.iR * 2);
+    for (int i=0; i< this.numSp; i++){
+      //this.spikes[i].draw();
+    }
+  }
+}
+
+class OGear extends Gear{
+  OGear(float x, float y, float ir, float or, int spkes){
+    super(x, y, ir, or, spkes);
+  }
+
+  void draw(){
+    
+    /*
+      color middle - 255, 230, 99
+      thick orange - 247, 144, 24
+    */
+    
     fill(243, 163, 42);
     circle(this.pos.x, this.pos.y, this.iR * 2);
     for (int i=0; i< this.numSp; i++){

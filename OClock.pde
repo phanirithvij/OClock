@@ -7,15 +7,19 @@ Dial sec;
 boolean displayClock = true;
 boolean doUpdate = true;
 
+final int HOUR = 312334;
+final int MIN  = 321867;
+final int SEC  = 3187831;
+
 float posX=0, posY=0;
 
 void setup (){
-  fullScreen();
-  //size(displayWidth, displayHeight);
+  //fullScreen();
+  size(displayWidth, displayHeight);
   background(0);
   oclock = loadImage("o'clock.png");
   //og = new Gear(displayWidth/2, displayHeight/2, 55, 65, 18);
-  og = new Gear(961, 540, 50, 67, 18);
+  og = new OGear(961, 540, 50, 67, 18);
   gears = new Gear[9];
   gears[0] = new Gear(949, 300, 43, 49, 8);
   gears[1] = new Gear(913.8, 363.8, 10, 20, 4);
@@ -27,9 +31,13 @@ void setup (){
   gears[7] = new Gear(932, 704, 38, 49, 15);
   gears[8] = new Gear(862.8, 749.6, 19, 24, 9);
   
-  min = new Dial(og.pos, 272, PI/6);
-  hour = new Dial(og.pos, 171, 5*PI/6);
-  sec = new Dial(og.pos, 272, -PI/2);
+  min = new Dial(og.pos, 272, PI/6, MIN);
+  hour = new Dial(og.pos, 171, 5*PI/6, HOUR);
+  sec = new Dial(og.pos, 272, -PI/2, SEC);
+  
+  min.value = minute();
+  sec.value = second();
+  hour.value = hour();
 }
 
 // orange circle
@@ -60,9 +68,19 @@ void draw(){
   if (doUpdate)
     og.update();
 
+  min.value = minute();
+  sec.value = second();
+  hour.value = hour();
+  
+  println(hour.value, min.value, sec.value);
+
+  //push();
+  //rotate(-PI/2);
   min.draw();
   hour.draw();
   sec.draw();
+  //pop();
+
 }
 
 void keyPressed(){
