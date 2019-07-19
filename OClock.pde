@@ -96,17 +96,29 @@ void drawHands(){
 
 void keyPressed(){
   if (key == 'd'){
-    og.pos.x+=5;
+    //og.pos.x+=5;
+    for(int i=0;i < 9;i++){
+      gears[i].pos.x += 5;
+    }
     println("posx", og.pos.x);
   } else if (key == 'a'){
-    og.pos.x-=5;
+    //og.pos.x-=5;
+    for(int i=0;i < 9;i++){
+      gears[i].pos.x -= 5;
+    }
     println("posx", og.pos.x);
   }
   if (key == 'w'){
-    og.pos.y-=5;
+    //og.pos.y-=5;
+    for(int i=0;i < 9;i++){
+      gears[i].pos.y -= 5;
+    }
     println("posy", og.pos.y);
   } else if (key == 's'){
-    og.pos.y+=5;
+    //og.pos.y+=5;
+    for(int i=0;i < 9;i++){
+      gears[i].pos.y += 5;
+    }
     println("posy", og.pos.y);
   }
   if (key == 'o'){

@@ -34,22 +34,26 @@ class Gear{
   // greyish color - rgb(82, 82, 73)
 
   void draw(){
+    push();
+    //fill(82, 82, 73);
+    fill(255);
+    translate(this.pos.x, this.pos.y);
+    //circle(0,0,this.iR * 2);
+    //line(0, 0, mouseX-this.pos.x, mouseY-this.pos.y);
+    pop();
+
     //this.pos.x = mouseX;
     //this.pos.y = mouseY;
     push();
     //translate(mouseX + 240, mouseY - 240);
-    translate(this.pos.x, this.pos.y);
-    float ang = map(mouseX, 0, width, 0, 2*PI);
+    float ang = map(mouseX, 0, width, 0, 3);
     println(ang);
-    rotate(ang);
+    scale(ang);
+    translate(this.pos.x, this.pos.y);
+    //rotate(ang);
+    translate(49, -62.6);
     scale(0.224);
     shape(this.asset);
-    pop();
-    
-    push();
-    fill(82, 82, 73);
-    translate(this.pos.x, this.pos.y);
-    circle(0,0,this.iR * 2);
     pop();
   }
 }
