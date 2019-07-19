@@ -21,8 +21,8 @@ final float CENTERX = 961, CENTERY = 540;
 //final float CENTERX = 500, CENTERY = 500;
 
 void setup (){
-  //fullScreen();
-  size(displayWidth, displayHeight);
+  fullScreen();
+  //size(displayWidth, displayHeight);
   background(0);
   oclock = loadImage("o'clock.png");
   //og = new Gear(displayWidth/2, displayHeight/2, 55, 65, 18);
@@ -32,7 +32,7 @@ void setup (){
   min = new Hand(og.pos, 272, PI/6, MIN);
   hour = new Hand(og.pos, 171, 5*PI/6, HOUR);
   sec = new Hand(og.pos, 272, -PI/2, SEC);
-  
+
   setHands();
 }
 
@@ -70,7 +70,7 @@ void draw(){
   image(oclock, 2, -11.4);
   if (displayClock){
     if (order){
-      drawHands();      
+      drawHands();
     }
     for (int i=0; i< 9; i++){
       gears[i].draw();
@@ -89,9 +89,9 @@ void setHands(){
 }
 
 void drawHands(){
-  hour.draw();
   min.draw();
   sec.draw();
+  hour.draw();
 }
 
 void keyPressed(){
@@ -112,16 +112,16 @@ void keyPressed(){
   if (key == 'o'){
     og.iR ++;
     og.oR ++;
-    for(int i=0; i < og.numSp; i++){
-      og.spikes[i].r = og.oR;
-    }
+    //for(int i=0; i < og.numSp; i++){
+    //  og.spikes[i].r = og.oR;
+    //}
     println(og.oR);
   } else if (key == 'p'){
     og.iR --;
     og.oR --;
-    for(int i=0; i < og.numSp; i++){
-      og.spikes[i].r = og.oR;
-    }
+    //for(int i=0; i < og.numSp; i++){
+    //  og.spikes[i].r = og.oR;
+    //}
     println(og.oR);
   }
   if (key == 'u'){

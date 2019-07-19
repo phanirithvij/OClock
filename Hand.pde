@@ -1,6 +1,5 @@
 class Hand{
   PVector start;
-  Spike[] spikes;
   float offAngle = PI / 180;
   float initAngle;
   float angle;
@@ -27,7 +26,7 @@ class Hand{
     end.x = this.start.x + this.r * cos(this.angle);
     end.y = this.start.y + this.r * sin(-this.angle);
   }
-  
+
   void draw(){
     float angle;
     if (this.type == MIN || this.type == SEC){

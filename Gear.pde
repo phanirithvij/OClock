@@ -17,7 +17,6 @@ class Gear{
   float iR = 10;
   float oR = 30;
   PVector pos;
-  Spike[] spikes;
   float offAngle = PI / 180;
   Gear(float x, float y, float ir, float or, int spkes){
     println("new Gear");
@@ -29,16 +28,16 @@ class Gear{
   }
 
   private void initSpikes(){
-    spikes = new Spike[this.numSp];
-    for (int i=0; i< this.numSp; i++){
-      this.spikes[i] = new Spike(this.pos, this.oR, i*(2 * PI / this.numSp));
-    }
+    //spikes = new Spike[this.numSp];
+    //for (int i=0; i< this.numSp; i++){
+    //  this.spikes[i] = new Spike(this.pos, this.oR, i*(2 * PI / this.numSp));
+    //}
   }
 
   void update(){
-    for(int t=0; t<numSp; t++){
-      this.spikes[t].update(this.offAngle);
-    }
+    //for(int t=0; t<numSp; t++){
+    //  //this.spikes[t].update(this.offAngle);
+    //}
   }
   
   void draw(){
@@ -48,14 +47,15 @@ class Gear{
     //circle(this.pos.x, this.pos.y, this.oR * 2);
     fill(82, 82, 73);
     circle(this.pos.x, this.pos.y, this.iR * 2);
-    for (int i=0; i< this.numSp; i++){
-      //this.spikes[i].draw();
-    }
+    //for (int i=0; i< this.numSp; i++){
+    //  this.spikes[i].draw();
+    //}
   }
 }
 
 class OGear extends Gear{
   PShape slice;
+  PShape teeth;
   int numSlices = 12;
   float f = 0;
   float sliceR;
@@ -66,21 +66,8 @@ class OGear extends Gear{
   OGear(float x, float y, float ir, float or, int spkes){
     super(x, y, ir, or, spkes);
     this.sliceR = this.iR * 50/54;
-    slice = loadShape("sliceold.svg");
-    slice.scale(1);
-    //slice.scale(20);
-    //slice = createShape();
-    //slice.beginShape();
-    //slice.stroke(255);
-    //slice.strokeWeight(5);
-    //slice.noFill();
-    //float xaa = 0;
-    //// Calculate the path as a sine wave
-    //for (float a = 0; a < TWO_PI; a += 0.1) {
-    //  slice.vertex(xaa, sin(a)*100);
-    //  xaa += 5;
-    //}
-    //slice.endShape();
+    slice = loadShape("assets/slices.svg");
+    teeth = loadShape("assets/ogears.svg");
   }
 
   private void drawInterior(){
@@ -93,36 +80,31 @@ class OGear extends Gear{
     translate(this.pos.x, this.pos.y);
     fill(247, 144, 24);
     strokeWeight(4);
-    /*
-      Anchor1 ->   (R-b)*cos(xa), (R-b)*sin(xa)
-      Anchor2 ->  -(R-b)*cos(xa), (R-b)*sin(xa)
-      Control1 ->  R*cos(xa), R*sin(xa)
-      Control2 -> -R*cos(xa), R*sin(xa)
-    */
 
-    for (int i=0; i < this.numSlices; i++){
-      // DO NOT use "i" * 2 * PI / this.numSlices
-      // https://stackoverflow.com/q/57094648/8608146
-      rotate(2*PI/this.numSlices);
-      // need to use -theta instead of theta here
-      // and args need to be (center, center, radius, radius, start, stop)
-      // start angle < stop angle must be satisfied else it will not be visible
-      arc(0, 0, this.sliceR*2, this.sliceR*2, -xa, xa);
-      bezier(
-        (this.sliceR - b) * cos(xa), (this.sliceR - b) * sin(xa),
-        this.sliceR * cos(xa), this.sliceR * sin(xa),
-        this.sliceR * cos(xa), -this.sliceR * sin(xa),
-        (this.sliceR - b) * cos(xa), -(this.sliceR - b) * sin(xa)
-      );
-      //println("rx", rx);
-      bezier(
-        (this.rx)*cos(xa), (this.rx)*sin(xa),
-        (this.rx)*cos(xa)-(this.rx)/3, (this.rx)*sin(xa),
-        (this.rx)*cos(xa)-(this.rx)/3, -(this.rx)*sin(xa),
-        (this.rx)*cos(xa), -(this.rx)*sin(xa)
-      );
-      shape(slice);
-    }
+    push();
+    //float ang = map(mouseX, 0, width, 0, 1);
+    //rotate(0.9523);
+    //println(mouseX-1000, mouseY-1000);
+    translate(-48, -48);
+
+    push();
+    //translate(mouseX-1000, mouseY-1000);
+    translate(-20, -18);
+    scale(0.42);
+    shape(teeth);
+    pop();
+    
+      push();
+      translate(48, 48);
+      //translate(mouseX-1000, mouseY-1000);
+      fill(255, 230, 99);
+      circle(0, 0, (this.iR-2) * 2);
+      pop();
+
+    scale(0.30);
+    shape(slice);
+    pop();
+
     pop();
 
   }
@@ -137,17 +119,9 @@ class OGear extends Gear{
       color middle - 255, 230, 99
       thick orange - 247, 144, 24
     */
-
-    push();
-    translate(this.pos.x, this.pos.y);
-    fill(247, 144, 24);
-    circle(0, 0, this.oR * 2);
-    fill(255, 230, 99);
-    circle(0, 0, this.iR * 2);
     for (int i=0; i< this.numSp; i++){
       //this.spikes[i].draw();
     }
-    pop();
     drawInterior();
   }
 }
