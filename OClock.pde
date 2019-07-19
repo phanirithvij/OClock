@@ -7,7 +7,7 @@ Hand sec;
 boolean displayClock = true;
 boolean displayImage = false;
 boolean doUpdate = true;
-boolean order = false;
+boolean order = true;
 
 final int HOUR = 312334;
 final int MIN  = 321867;
@@ -37,17 +37,17 @@ void setup (){
 }
 
 void initGears(){
-  og = new OGear(0, 0, 54.0, 67, 18);
+  og = new OGear(0, 0, 54.0, 67, 18, "ogears");
   gears = new Gear[9];
-  gears[0] = new Gear(-12, -240, 43, 49, 8);
-  gears[1] = new Gear(-47.2, -176.2, 10, 20, 4);
-  gears[2] = new Gear(-78.6, -115.4, 44, 55, 14);
-  gears[3] = new Gear(3.0, -97.0, 22, 36, 9);
+  gears[0] = new Gear(-12, -240, 43, 49, 8, "ninja");
+  gears[1] = new Gear(-47.2, -176.2, 10, 20, 4, "plus");
+  gears[2] = new Gear(-78.6, -115.4, 44, 55, 14, "four");
+  gears[3] = new Gear(3.0, -97.0, 22, 36, 9, "pokemon");
   gears[4] = og;
-  gears[5] = new Gear(-75.4, 78, 30, 48, 12);
-  gears[6] = new Gear(61.8, 56.4, 13, 23, 6);
-  gears[7] = new Gear(-29, 164, 38, 49, 15);
-  gears[8] = new Gear(-98.2, 209.6, 19, 24, 9);
+  gears[5] = new Gear(-75.4, 78, 30, 48, 12, "wheel");
+  gears[6] = new Gear(61.8, 56.4, 13, 23, 6, "mine");
+  gears[7] = new Gear(-29, 164, 38, 49, 15, "sharingan");
+  gears[8] = new Gear(-98.2, 209.6, 19, 24, 9, "three");
 }
 
 // clock
@@ -61,7 +61,7 @@ void initGears(){
 
 void draw(){
   // must have a background in draw to clear canvas
-  background(0);
+  background(255);
   if (doUpdate){
     og.update();
     setHands();

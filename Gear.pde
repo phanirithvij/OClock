@@ -13,49 +13,48 @@
 // last gear circles - (r - 5) (872, 758.2 - bottom right), (865.8, 738 - top), (850.8, 753.2 - bottom left)
 
 class Gear{
+  PShape asset;
   int numSp = 6;
   float iR = 10;
   float oR = 30;
   PVector pos;
   float offAngle = PI / 180;
-  Gear(float x, float y, float ir, float or, int spkes){
+  Gear(float x, float y, float ir, float or, int spkes, String name){
     println("new Gear");
     this.pos = new PVector(CENTERX + x, CENTERY + y);
+    //this.pos = new PVector(mouseX + x, mouseY + y);
     this.iR = ir;
     this.oR = or;
     this.numSp = spkes;
-    initSpikes();
-  }
-
-  private void initSpikes(){
-    //spikes = new Spike[this.numSp];
-    //for (int i=0; i< this.numSp; i++){
-    //  this.spikes[i] = new Spike(this.pos, this.oR, i*(2 * PI / this.numSp));
-    //}
-  }
-
-  void update(){
-    //for(int t=0; t<numSp; t++){
-    //  //this.spikes[t].update(this.offAngle);
-    //}
+    this.asset = loadShape("assets/"+name+".svg");
   }
   
+  void update(){}
+  
+  // greyish color - rgb(82, 82, 73)
+
   void draw(){
-    //strokeWeight(8);
-    //stroke(255);
-    //fill(10, 2, 130);
-    //circle(this.pos.x, this.pos.y, this.oR * 2);
+    //this.pos.x = mouseX;
+    //this.pos.y = mouseY;
+    push();
+    //translate(mouseX + 240, mouseY - 240);
+    translate(this.pos.x, this.pos.y);
+    float ang = map(mouseX, 0, width, 0, 2*PI);
+    println(ang);
+    rotate(ang);
+    scale(0.224);
+    shape(this.asset);
+    pop();
+    
+    push();
     fill(82, 82, 73);
-    circle(this.pos.x, this.pos.y, this.iR * 2);
-    //for (int i=0; i< this.numSp; i++){
-    //  this.spikes[i].draw();
-    //}
+    translate(this.pos.x, this.pos.y);
+    circle(0,0,this.iR * 2);
+    pop();
   }
 }
 
 class OGear extends Gear{
-  PShape slice;
-  PShape teeth;
   int numSlices = 12;
   float f = 0;
   float sliceR;
@@ -63,11 +62,10 @@ class OGear extends Gear{
   float xa = (PI/numSlices - ya);
   float b = 8;
   float rx;
-  OGear(float x, float y, float ir, float or, int spkes){
-    super(x, y, ir, or, spkes);
+  OGear(float x, float y, float ir, float or, int spkes, String name){
+    super(x, y, ir, or, spkes, name);
     this.sliceR = this.iR * 50/54;
-    slice = loadShape("assets/slices.svg");
-    teeth = loadShape("assets/ogears.svg");
+    //teeth = loadShape("assets/ogears.svg");
   }
 
   private void drawInterior(){
@@ -82,27 +80,15 @@ class OGear extends Gear{
     strokeWeight(4);
 
     push();
-    //float ang = map(mouseX, 0, width, 0, 1);
-    //rotate(0.9523);
     //println(mouseX-1000, mouseY-1000);
-    translate(-48, -48);
-
     push();
-    //translate(mouseX-1000, mouseY-1000);
-    translate(-20, -18);
-    scale(0.42);
-    shape(teeth);
+    //float ang = map(mouseX, 0, width, 0, 2*PI);
+    //println(ang);
+    //rotate(ang);
+    translate(116, -149);
+    scale(0.535);
+    shape(this.asset);
     pop();
-    
-      push();
-      translate(48, 48);
-      //translate(mouseX-1000, mouseY-1000);
-      fill(255, 230, 99);
-      circle(0, 0, (this.iR-2) * 2);
-      pop();
-
-    scale(0.30);
-    shape(slice);
     pop();
 
     pop();
@@ -116,8 +102,8 @@ class OGear extends Gear{
     // r - 67 outermost radius containing spikes inside
     // offsetAngle - 0.55850565 to align with image
     /*
-      color middle - 255, 230, 99
-      thick orange - 247, 144, 24
+      color middle - rgb(255, 230, 99)
+      thick orange - rgb(247, 144, 24)
     */
     for (int i=0; i< this.numSp; i++){
       //this.spikes[i].draw();
