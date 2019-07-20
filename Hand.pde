@@ -26,6 +26,17 @@ class Hand {
     end.x = this.start.x + this.r * cos(this.angle);
     end.y = this.start.y + this.r * sin(-this.angle);
   }
+  
+  private void showBounds(float handLength){
+    //pushMatrix();
+    pushStyle();
+    noFill();
+    stroke(255);
+    strokeWeight(5);
+    rect(0, -10, handLength, 20);
+    popStyle();
+    //popMatrix();
+  }
 
   void draw() {
     float angle;
@@ -35,7 +46,8 @@ class Hand {
       angle = map(this.value % 12, 0, 12, 0, 2*PI);
     }
 
-    push();
+    pushMatrix();
+    pushStyle();
     // disable Hand outline
     strokeWeight(0);
     //stroke(200);
@@ -44,22 +56,32 @@ class Hand {
     if (this.type == MIN) {
       fill(48, 48, 42);
       triangle(0, 10, 0, -10, MIN_HAND_LEN, 0);
+
+      if (bounds) showBounds(MIN_HAND_LEN);
+
       fill(0);
-      circle(0, 0, 30);
+      ellipse(0, 0, 30, 30);
       //line(0, 0, MIN_HAND_LEN, 0);
     } else if (this.type == SEC) {
       fill(48, 48, 42);
       triangle(0, 10, 0, -10, SEC_HAND_LEN, 0);
+
+      if (bounds) showBounds(SEC_HAND_LEN);
+
       fill(100);
-      circle(0, 0, 20);
+      ellipse(0, 0, 20, 20);
       //line(0, 0, SEC_HAND_LEN, 0);
     } else if (this.type == HOUR) {
       fill(247, 100, 24);
       triangle(0, 10, 0, -10, HOUR_HAND_LEN, 0);
+
+      if (bounds) showBounds(HOUR_HAND_LEN);
+
       fill(0);
-      circle(0, 0, 10);
+      ellipse(0, 0, 10, 10);
       //line(0, 0, HOUR_HAND_LEN, 0);
     }
-    pop();
+    popStyle();
+    popMatrix();
   }
 }

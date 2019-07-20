@@ -40,27 +40,47 @@ class Gear {
 
   void update() {
   }
+  
+  private void showBounds(){
+    //pushMatrix();
+    pushStyle();
+    noFill();
+    stroke(255);
+    strokeWeight(10);
+    rect(0,0, imwidth, imheight);
+    popStyle();
+    //popMatrix();
+  }
 
   void draw() {
-    //this.pos.x = this.initPos.x + CENTERX;
-    //this.pos.y = this.initPos.y + CENTERY;
+    CENTERX = width/2;
+    CENTERY = height/2;
+    this.pos.x = this.initPos.x + CENTERX;
+    this.pos.y = this.initPos.y + CENTERY;
 
-    push();
+    pushMatrix();
+    pushStyle();
     fill(grey);
     translate(this.pos.x, this.pos.y);
     //circle(0,0,this.oR * 2);
     //line(0, 0, mouseX-this.pos.x, mouseY-this.pos.y);
-    pop();
+    popStyle();
+    popMatrix();
 
-    push();
+    pushMatrix();
+    pushStyle();
     //translate(mouseX + 240, mouseY - 240);
-    float ang = map(mouseX, 0, width, 0, 1);
-    println(ang);
-    //if (this.name == "plus")
-    //scale(0.62812495);
+    float ang = map(mouseX, 0, width, 0, TWO_PI);
+    //float scl = map(mouseY, 0, height, 0, 0.02);
+    //println(ang);
+
     translate(this.pos.x, this.pos.y);
-    //rotate(ang);
-    scale(ang);
+    rotate(ang);
+    //scale(scl);
+    scale(this.oR * 0.0022037036);
+    //scale(this.oR * scl);
+
+    translate(-this.asset.width/2, -this.asset.height/2);
 
     // these two
     //translate(49, -62.6);
@@ -68,13 +88,11 @@ class Gear {
     // are dependant
 
     shape(this.asset, 0, 0);
+    
+    if (bounds) showBounds();
 
-    push();
-    noFill();
-    rect(0,0, imwidth, imheight);
-    pop();
-
-    pop();
+    popStyle();
+    popMatrix();
   }
 }
 
@@ -93,22 +111,22 @@ class OGear extends Gear {
     // r - 67 outermost radius containing spikes inside
     // offsetAngle - 0.55850565 to align with image
 
-//    push();
-//    translate(this.pos.x, this.pos.y);
-//    //float ang = map(mouseX, 0, width, 0, 2*PI);
-//    //println(ang);
-//    //rotate(ang);
-//    //push();
-//    //translate(116, -149);
-//    //scale(0.535);
-//    shape(this.asset, 0, 0);
-//    //pop();
-//    //shape(this.asset, 0, 0, mouseX, mouseY);
-//    push();
-//    noFill();
-//    rect(0,0, imwidth, imheight);
-//    pop();
-//    pop();
+    //push();
+    //translate(this.pos.x, this.pos.y);
+    ////float ang = map(mouseX, 0, width, 0, 2*PI);
+    ////println(ang);
+    ////rotate(ang);
+    ////push();
+    //translate(116, -149);
+    //scale(0.535);
+    //shape(this.asset, 0, 0);
+    ////pop();
+    ////shape(this.asset, 0, 0, mouseX, mouseY);
+    //push();
+    //noFill();
+    //rect(0,0, imwidth, imheight);
+    //pop();
+    //pop();
 
     super.draw();
   }

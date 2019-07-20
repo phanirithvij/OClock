@@ -8,6 +8,7 @@ boolean displayClock = true;
 boolean displayImage = false;
 boolean doUpdate = true;
 boolean order = true;
+boolean bounds = false;
 
 // <enum>
 final int HOUR = 312334;
@@ -19,13 +20,16 @@ final float MIN_HAND_LEN = 290;
 final float SEC_HAND_LEN = 300;
 final float HOUR_HAND_LEN = 180;
 
-final float CENTERX = 961, CENTERY = 540;
+float CENTERX = 961, CENTERY = 540;
 //final float CENTERX = 500, CENTERY = 500;
 
+void settings(){
+  size(displayWidth, displayHeight);
+}
+
 void setup () {
-  fullScreen();
-  //size(displayWidth, displayHeight);
-  background(0);
+  //fullScreen();
+  surface.setResizable(true);
   oclock = loadImage("o'clock.png");
 
   initGears();
@@ -37,7 +41,7 @@ void initGears() {
   //og = new OGear(0, 0, 54.0, 67, 18, "drawing");
   og = new OGear(0, 0, 54.0, 67, 18, "ogears");
   gears = new Gear[9];
-  gears[0] = new Gear(-12, -240, 43, 57, 8, "ninja");
+  gears[0] = new Gear(-12, -240, 43, 49, 8, "ninja");
   gears[1] = new Gear(-47.2, -176.2, 10, 20, 4, "plus");
   gears[2] = new Gear(-78.6, -115.4, 44, 55, 14, "four");
   gears[3] = new Gear(3.0, -97.0, 22, 36, 9, "pokemon");
@@ -65,13 +69,16 @@ void initHands() {
 
 void draw() {
   // must have a background in draw to clear canvas
-  background(255);
-  if (doUpdate) {
-    setHands();
+  background(0);
+  //background(255, 204, 0);
+  if (doUpdate) setHands();
+
+  if (displayImage){
+    //println(oclock);
+    //image(oclock, 0, -52);
+    image(oclock, 2, -11.4);
   }
 
-  if (displayImage)
-    image(oclock, 2, -11.4);
 
   if (displayClock) {
     if (order) {
@@ -146,6 +153,11 @@ void keyPressed() {
   if (key == 'n') displayImage = !displayImage;
   if (key == 'v') doUpdate = !doUpdate;
   if (key == 'm') order = !order;
+  if (key == 'b') bounds = !bounds;
+
+  //https://forum.processing.org/two/discussion/comment/102455/#Comment_102455
+  if ( key == 'p' ) looping = !looping;
+  if ( key == 'r' && looping==false ) redraw();
 
   if (key == 'x') {
     saveFrame("images/line-######.png");
