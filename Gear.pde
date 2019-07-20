@@ -20,6 +20,7 @@ class Gear {
   float oR = 30;
   PVector pos;
   PVector initPos;
+  float imwidth, imheight;
   color grey = color(82, 82, 73);
   Gear(float x, float y, float ir, float or, int spkes, String name) {
     println("new Gear");
@@ -32,6 +33,8 @@ class Gear {
     this.name = name;
     this.asset = loadShape("assets/"+this.name+".svg");
     println("orig: name: "+name, this.asset.width, this.asset.height);
+    this.imwidth = this.asset.width;
+    this.imheight = this.asset.height;
     //println("upda: name: "+name, );
   }
 
@@ -51,20 +54,26 @@ class Gear {
 
     push();
     //translate(mouseX + 240, mouseY - 240);
-    //float ang = map(mouseX, 0, width, 0, TWO_PI);
-    //println(ang);
+    float ang = map(mouseX, 0, width, 0, 1);
+    println(ang);
     //if (this.name == "plus")
     //scale(0.62812495);
-    //scale(ang);
     translate(this.pos.x, this.pos.y);
     //rotate(ang);
+    scale(ang);
 
     // these two
-    translate(49, -62.6);
-    scale(0.224);
+    //translate(49, -62.6);
+    //scale(0.224);
     // are dependant
 
-    shape(this.asset);
+    shape(this.asset, 0, 0);
+
+    push();
+    noFill();
+    rect(0,0, imwidth, imheight);
+    pop();
+
     pop();
   }
 }
@@ -73,11 +82,8 @@ class OGear extends Gear {
   int numSlices = 12;
   color orange = color(247, 144, 24);
   color yellow = color(255, 230, 99);
-  float imwidth, imheight;
   OGear(float x, float y, float ir, float or, int spkes, String name) {
     super(x, y, ir, or, spkes, name);
-    imwidth = this.asset.width;
-    imheight = this.asset.height;
   }
 
   void draw() {
@@ -87,23 +93,23 @@ class OGear extends Gear {
     // r - 67 outermost radius containing spikes inside
     // offsetAngle - 0.55850565 to align with image
 
-    push();
-    translate(this.pos.x, this.pos.y);
-    //float ang = map(mouseX, 0, width, 0, 2*PI);
-    //println(ang);
-    //rotate(ang);
-    //push();
-    //translate(116, -149);
-    //scale(0.535);
-    shape(this.asset, 0, 0);
-    //pop();
-    //shape(this.asset, 0, 0, mouseX, mouseY);
-    push();
-    noFill();
-    rect(0,0, imwidth, imheight);
-    pop();
-    pop();
+//    push();
+//    translate(this.pos.x, this.pos.y);
+//    //float ang = map(mouseX, 0, width, 0, 2*PI);
+//    //println(ang);
+//    //rotate(ang);
+//    //push();
+//    //translate(116, -149);
+//    //scale(0.535);
+//    shape(this.asset, 0, 0);
+//    //pop();
+//    //shape(this.asset, 0, 0, mouseX, mouseY);
+//    push();
+//    noFill();
+//    rect(0,0, imwidth, imheight);
+//    pop();
+//    pop();
 
-    //super.draw();
+    super.draw();
   }
 }
