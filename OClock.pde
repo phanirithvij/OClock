@@ -34,6 +34,7 @@ void setup () {
 }
 
 void initGears() {
+  //og = new OGear(0, 0, 54.0, 67, 18, "drawing");
   og = new OGear(0, 0, 54.0, 67, 18, "ogears");
   gears = new Gear[9];
   gears[0] = new Gear(-12, -240, 43, 57, 8, "ninja");

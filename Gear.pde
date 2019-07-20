@@ -32,10 +32,7 @@ class Gear {
     this.name = name;
     this.asset = loadShape("assets/"+this.name+".svg");
     println("orig: name: "+name, this.asset.width, this.asset.height);
-    //this.asset.width = 0;
-    //this.asset.height = 0;
     //println("upda: name: "+name, );
-    //this.asset.setVisible(false);
   }
 
   void update() {
@@ -76,8 +73,11 @@ class OGear extends Gear {
   int numSlices = 12;
   color orange = color(247, 144, 24);
   color yellow = color(255, 230, 99);
+  float imwidth, imheight;
   OGear(float x, float y, float ir, float or, int spkes, String name) {
     super(x, y, ir, or, spkes, name);
+    imwidth = this.asset.width;
+    imheight = this.asset.height;
   }
 
   void draw() {
@@ -86,14 +86,22 @@ class OGear extends Gear {
     // r - 54 outer light orange circle
     // r - 67 outermost radius containing spikes inside
     // offsetAngle - 0.55850565 to align with image
+
     push();
     translate(this.pos.x, this.pos.y);
     //float ang = map(mouseX, 0, width, 0, 2*PI);
     //println(ang);
     //rotate(ang);
-    translate(116, -149);
-    scale(0.535);
-    shape(this.asset, mouseX, mouseY);
+    //push();
+    //translate(116, -149);
+    //scale(0.535);
+    shape(this.asset, 0, 0);
+    //pop();
+    //shape(this.asset, 0, 0, mouseX, mouseY);
+    push();
+    noFill();
+    rect(0,0, imwidth, imheight);
+    pop();
     pop();
 
     //super.draw();
