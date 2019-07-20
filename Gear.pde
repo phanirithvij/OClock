@@ -22,6 +22,7 @@ class Gear {
   PVector initPos;
   float imwidth, imheight;
   color grey = color(82, 82, 73);
+  color boundcolor = color(255);
   Gear(float x, float y, float ir, float or, int spkes, String name) {
     println("new Gear");
     this.pos = new PVector(CENTERX + x, CENTERY + y);
@@ -40,14 +41,14 @@ class Gear {
 
   void update() {
   }
-  
-  private void showBounds(){
+
+  private void showBounds() {
     //pushMatrix();
     pushStyle();
     noFill();
-    stroke(255);
+    stroke(boundcolor);
     strokeWeight(10);
-    rect(0,0, imwidth, imheight);
+    rect(0, 0, imwidth, imheight);
     popStyle();
     //popMatrix();
   }
@@ -72,7 +73,7 @@ class Gear {
     //translate(mouseX + 240, mouseY - 240);
     float ang = map(mouseX, 0, width, 0, TWO_PI);
     //float scl = map(mouseY, 0, height, 0, 0.02);
-    //println(ang);
+    //println(this.oR * scl);
 
     translate(this.pos.x, this.pos.y);
     rotate(ang);
@@ -88,7 +89,7 @@ class Gear {
     // are dependant
 
     shape(this.asset, 0, 0);
-    
+
     if (bounds) showBounds();
 
     popStyle();
@@ -102,6 +103,7 @@ class OGear extends Gear {
   color yellow = color(255, 230, 99);
   OGear(float x, float y, float ir, float or, int spkes, String name) {
     super(x, y, ir, or, spkes, name);
+    boundcolor = orange;
   }
 
   void draw() {

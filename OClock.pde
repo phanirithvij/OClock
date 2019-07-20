@@ -7,7 +7,7 @@ Hand sec;
 boolean displayClock = true;
 boolean displayImage = false;
 boolean doUpdate = true;
-boolean order = true;
+boolean order = false;
 boolean bounds = false;
 
 // <enum>
@@ -23,13 +23,13 @@ final float HOUR_HAND_LEN = 180;
 float CENTERX = 961, CENTERY = 540;
 //final float CENTERX = 500, CENTERY = 500;
 
-void settings(){
-  size(displayWidth, displayHeight);
+void settings() {
+  size(displayWidth, displayHeight, P2D);
 }
 
 void setup () {
   //fullScreen();
-  surface.setResizable(true);
+  //surface.setResizable(true);
   oclock = loadImage("o'clock.png");
 
   initGears();
@@ -73,7 +73,7 @@ void draw() {
   //background(255, 204, 0);
   if (doUpdate) setHands();
 
-  if (displayImage){
+  if (displayImage) {
     //println(oclock);
     //image(oclock, 0, -52);
     image(oclock, 2, -11.4);

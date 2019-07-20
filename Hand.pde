@@ -26,16 +26,14 @@ class Hand {
     end.x = this.start.x + this.r * cos(this.angle);
     end.y = this.start.y + this.r * sin(-this.angle);
   }
-  
-  private void showBounds(float handLength){
-    //pushMatrix();
+
+  private void showBounds(float handLength) {
     pushStyle();
     noFill();
     stroke(255);
     strokeWeight(5);
     rect(0, -10, handLength, 20);
     popStyle();
-    //popMatrix();
   }
 
   void draw() {
