@@ -13,9 +13,12 @@
 // last gear circles - (r - 5) (872, 758.2 - bottom right), (865.8, 738 - top), (850.8, 753.2 - bottom left)
 
 class Gear {
+  float time=millis();
   String name;
   PShape asset;
   int numSp = 6;
+  float driverRadius = 67;
+  int driverTeeth = 18;
   float iR = 10;
   float oR = 30;
   PVector pos;
@@ -24,6 +27,7 @@ class Gear {
   float imwidth, imheight;
   color grey = color(82, 82, 73);
   color boundcolor = color(255);
+  float currangle = PI/360;
   Gear(float x, float y, float ir, float or, int spkes, int d, String name) {
     println("new Gear");
     this.pos = new PVector(CENTERX + x, CENTERY + y);
@@ -69,12 +73,18 @@ class Gear {
     pushMatrix();
     pushStyle();
     //translate(mouseX + 240, mouseY - 240);
-    float ang = map(mouseX, 0, width, 0, TWO_PI);
+    //float ang = map(mouseX, 0, width, 0, TWO_PI);
     //float scl = map(mouseY, 0, height, 0, 0.02);
     //println(this.oR * scl);
 
     translate(this.pos.x, this.pos.y);
-    rotate(this.Direction * ang);
+    //if (millis() > time + 1000){
+    this.currangle += PI/360 * this.driverTeeth / this.numSp;
+      //time = millis();
+    //}
+    //this.currangle += PI/360 * this.driverRadius / this.oR;
+
+    rotate(this.Direction * this.currangle);
     //scale(scl);
     scale(this.oR * 0.0022037036);
 

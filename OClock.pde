@@ -1,47 +1,50 @@
 PImage oclock;
+
 Gear[] gears;
 Gear og;
+
 Hand min;
 Hand hour;
 Hand sec;
+
 boolean displayClock = true;
 boolean displayImage = false;
 boolean doUpdate = true;
 boolean order = false;
 boolean bounds = false;
 
-// <enum>
-final int HOUR = 312334;
-final int MIN  = 321867;
-final int SEC  = 318783;
-//
+String version  = "v0.0.4-alpha";
 
-final float MIN_HAND_LEN = 290;
-final float SEC_HAND_LEN = 300;
-final float HOUR_HAND_LEN = 180;
+enum Mode {
+  java, android
+}
 
+Mode mode = getMode();
+
+// will be set to (displayWidth/2, displayHeight/2) in draw
 float CENTERX = 961, CENTERY = 540;
-//final float CENTERX = 500, CENTERY = 500;
 
 void settings() {
-  size(displayWidth, displayHeight, P2D);
+  println(mode);
+  fullScreen(P2D);
+  //size(displayWidth, displayHeight);
 }
 
 void setup () {
-  //fullScreen();
-  //surface.setResizable(true);
   oclock = loadImage("o'clock.png");
+  //surface.setResizable(true);
 
   initGears();
   initHands();
   setHands();
+  
+  getMode();
 }
 
 void initGears() {
-  //og = new OGear(0, 0, 54.0, 67, 18, "drawing");
   og = new OGear(0, 0, 54.0, 67, 18, 1, "ogears");
   gears = new Gear[9];
-  gears[0] = new Gear(-12, -240, 43, 49, 8, 1, "ninja");
+  gears[0] = new Gear(-12, -240, 43, 55, 8, 1, "ninja");
   gears[1] = new Gear(-47.2, -176.2, 10, 20, 4, -1, "plus");
   gears[2] = new Gear(-78.6, -115.4, 44, 55, 14, 1, "four");
   gears[3] = new Gear(3.0, -97.0, 22, 36, 9, -1, "pokemon");
@@ -53,9 +56,9 @@ void initGears() {
 }
 
 void initHands() {
-  min = new Hand(og.pos, 272, PI/6, MIN);
-  hour = new Hand(og.pos, 171, 5*PI/6, HOUR);
-  sec = new Hand(og.pos, 272, -PI/2, SEC);
+  min = new Hand(og.pos, HandType.MIN);
+  hour = new Hand(og.pos, HandType.HOUR);
+  sec = new Hand(og.pos, HandType.SEC);
 }
 
 // clock
@@ -74,11 +77,9 @@ void draw() {
   if (doUpdate) setHands();
 
   if (displayImage) {
-    //println(oclock);
     //image(oclock, 0, -52);
     image(oclock, 2, -11.4);
   }
-
 
   if (displayClock) {
     if (order) {
@@ -97,7 +98,6 @@ void setHands() {
   min.value = minute();
   sec.value = second();
   hour.value = hour();
-  //println(hour.value, min.value, sec.value);
 }
 
 void drawHands() {
@@ -160,10 +160,14 @@ void keyPressed() {
   if ( key == 'r' && looping==false ) redraw();
 
   if (key == 'x') {
-    saveFrame("images/line-######.png");
+    saveFrame("images/"+version+"-######.png");
   }
 }
 
 void mousePressed() {
   println(mouseX, mouseY);
+}
+
+Mode getMode(){
+  return (System.getProperty("java.runtime.name") == "Android Runtime") ? Mode.android : Mode.java;
 }

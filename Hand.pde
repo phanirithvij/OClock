@@ -1,34 +1,21 @@
+
+enum HandType {
+  HOUR, MIN, SEC
+}
+
+final float MIN_HAND_LEN = 290;
+final float SEC_HAND_LEN = 300;
+final float HOUR_HAND_LEN = 180;
+
 class Hand {
   PVector start;
-  float offAngle = PI / 180;
-  float initAngle;
-  float angle;
-  float r;
   float value;
-  PVector end;
-  int type;
-  Hand(PVector orange, float r, float angle, int type) {
+  float angle;
+  HandType type;
+  Hand(PVector center, HandType type) {
     println("new Hand");
-    this.initAngle = angle;
-    this.start = orange;
-    this.angle = angle;
+    this.start = center;
     this.type = type;
-    this.r = r;
-    end = new PVector(
-      this.start.x + this.r * cos(this.angle), 
-      this.start.y + this.r * sin(-this.angle)
-    );
-  }
-
-  void update(float offsetAngle) {
-    this.angle = this.initAngle + offsetAngle;
-    end.x = this.start.x + this.r * cos(this.angle);
-    end.y = this.start.y + this.r * sin(-this.angle);
-  }
-
-  void update() {
-    end.x = this.start.x + this.r * cos(this.angle);
-    end.y = this.start.y + this.r * sin(-this.angle);
   }
 
   private void showBounds(float handLength) {
@@ -41,11 +28,10 @@ class Hand {
   }
 
   void draw() {
-    float angle;
-    if (this.type == MIN || this.type == SEC) {
-      angle = map(this.value, 0, 60, 0, 2*PI);
+    if (this.type == HandType.MIN || this.type == HandType.SEC) {
+      this.angle = map(this.value, 0, 60, 0, 2*PI);
     } else {
-      angle = map(this.value % 12, 0, 12, 0, 2*PI);
+      this.angle = map(this.value % 12, 0, 12, 0, 2*PI);
     }
 
     pushMatrix();
@@ -54,7 +40,7 @@ class Hand {
     strokeWeight(0);
     translate(this.start.x, this.start.y);
     rotate(angle - PI/2);
-    if (this.type == MIN) {
+    if (this.type == HandType.MIN) {
       fill(48, 48, 42);
       triangle(0, 10, 0, -10, MIN_HAND_LEN, 0);
 
@@ -62,7 +48,7 @@ class Hand {
 
       fill(0);
       ellipse(0, 0, 30, 30);
-    } else if (this.type == SEC) {
+    } else if (this.type == HandType.SEC) {
       fill(48, 48, 42);
       triangle(0, 10, 0, -10, SEC_HAND_LEN, 0);
 
@@ -70,7 +56,7 @@ class Hand {
 
       fill(100);
       ellipse(0, 0, 20, 20);
-    } else if (this.type == HOUR) {
+    } else if (this.type == HandType.HOUR) {
       fill(247, 100, 24);
       triangle(0, 10, 0, -10, HOUR_HAND_LEN, 0);
 
