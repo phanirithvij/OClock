@@ -9,12 +9,15 @@ class Hand {
   int type;
   Hand(PVector orange, float r, float angle, int type) {
     println("new Hand");
-    this.start = orange;
-    this.r = r;
     this.initAngle = angle;
+    this.start = orange;
     this.angle = angle;
     this.type = type;
-    end = new PVector(this.start.x + this.r * cos(this.angle), this.start.y + this.r * sin(-this.angle));
+    this.r = r;
+    end = new PVector(
+      this.start.x + this.r * cos(this.angle), 
+      this.start.y + this.r * sin(-this.angle)
+    );
   }
 
   void update(float offsetAngle) {
@@ -22,6 +25,7 @@ class Hand {
     end.x = this.start.x + this.r * cos(this.angle);
     end.y = this.start.y + this.r * sin(-this.angle);
   }
+
   void update() {
     end.x = this.start.x + this.r * cos(this.angle);
     end.y = this.start.y + this.r * sin(-this.angle);
@@ -48,7 +52,6 @@ class Hand {
     pushStyle();
     // disable Hand outline
     strokeWeight(0);
-    //stroke(200);
     translate(this.start.x, this.start.y);
     rotate(angle - PI/2);
     if (this.type == MIN) {
@@ -59,7 +62,6 @@ class Hand {
 
       fill(0);
       ellipse(0, 0, 30, 30);
-      //line(0, 0, MIN_HAND_LEN, 0);
     } else if (this.type == SEC) {
       fill(48, 48, 42);
       triangle(0, 10, 0, -10, SEC_HAND_LEN, 0);
@@ -68,7 +70,6 @@ class Hand {
 
       fill(100);
       ellipse(0, 0, 20, 20);
-      //line(0, 0, SEC_HAND_LEN, 0);
     } else if (this.type == HOUR) {
       fill(247, 100, 24);
       triangle(0, 10, 0, -10, HOUR_HAND_LEN, 0);
@@ -77,7 +78,6 @@ class Hand {
 
       fill(0);
       ellipse(0, 0, 10, 10);
-      //line(0, 0, HOUR_HAND_LEN, 0);
     }
     popStyle();
     popMatrix();

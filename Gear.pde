@@ -28,7 +28,6 @@ class Gear {
     println("new Gear");
     this.pos = new PVector(CENTERX + x, CENTERY + y);
     this.initPos = new PVector(x, y);
-    //this.pos = new PVector(mouseX + x, mouseY + y);
     this.iR = ir;
     this.oR = or;
     this.Direction = d;
@@ -38,21 +37,18 @@ class Gear {
     println("orig: name: "+name, this.asset.width, this.asset.height);
     this.imwidth = this.asset.width;
     this.imheight = this.asset.height;
-    //println("upda: name: "+name, );
   }
 
   void update() {
   }
 
   private void showBounds() {
-    //pushMatrix();
     pushStyle();
     noFill();
     stroke(boundcolor);
     strokeWeight(10);
     rect(0, 0, imwidth, imheight);
     popStyle();
-    //popMatrix();
   }
 
   void draw() {
@@ -81,17 +77,12 @@ class Gear {
     rotate(this.Direction * ang);
     //scale(scl);
     scale(this.oR * 0.0022037036);
-    //scale(this.oR * scl);
 
+    // translate to svg's center
     translate(-this.asset.width/2, -this.asset.height/2);
-
-    // these two
-    //translate(49, -62.6);
-    //scale(0.224);
-    // are dependant
-
     shape(this.asset, 0, 0);
 
+    // debug bounds
     if (bounds) showBounds();
 
     popStyle();
@@ -107,31 +98,9 @@ class OGear extends Gear {
     super(x, y, ir, or, spkes, d, name);
     boundcolor = orange;
   }
-
-  void draw() {
-    // r - 50 inner slices
-    // r - 8  innermost light orange circle
-    // r - 54 outer light orange circle
-    // r - 67 outermost radius containing spikes inside
-    // offsetAngle - 0.55850565 to align with image
-
-    //push();
-    //translate(this.pos.x, this.pos.y);
-    ////float ang = map(mouseX, 0, width, 0, 2*PI);
-    ////println(ang);
-    ////rotate(ang);
-    ////push();
-    //translate(116, -149);
-    //scale(0.535);
-    //shape(this.asset, 0, 0);
-    ////pop();
-    ////shape(this.asset, 0, 0, mouseX, mouseY);
-    //push();
-    //noFill();
-    //rect(0,0, imwidth, imheight);
-    //pop();
-    //pop();
-
-    super.draw();
-  }
+  // r - 50 inner slices
+  // r - 8  innermost light orange circle
+  // r - 54 outer light orange circle
+  // r - 67 outermost radius containing spikes inside
+  // offsetAngle - 0.55850565 to align with image
 }
