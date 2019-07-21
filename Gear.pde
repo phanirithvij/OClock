@@ -25,7 +25,6 @@ class Gear {
   PVector initPos;
   int Direction;
   float imwidth, imheight;
-  color grey = color(82, 82, 73);
   color boundcolor = color(255);
   float currangle = PI/360;
   Gear(float x, float y, float ir, float or, int spkes, int d, String name) {
@@ -102,8 +101,6 @@ class Gear {
 
 class OGear extends Gear {
   int numSlices = 12;
-  color orange = color(247, 144, 24);
-  color yellow = color(255, 230, 99);
   OGear(float x, float y, float ir, float or, int spkes, int d, String name) {
     super(x, y, ir, or, spkes, d, name);
     boundcolor = orange;

@@ -7,6 +7,12 @@ Hand min;
 Hand hour;
 Hand sec;
 
+Dial dial;
+
+color orange = color(247, 144, 24);
+color yellow = color(255, 230, 99);
+color grey = color(82, 82, 73);
+
 boolean displayClock = true;
 boolean displayImage = false;
 boolean doUpdate = true;
@@ -37,7 +43,9 @@ void setup () {
   initGears();
   initHands();
   setHands();
-  
+
+  dial = new Dial(og);
+
   getMode();
 }
 
@@ -82,6 +90,7 @@ void draw() {
   }
 
   if (displayClock) {
+    dial.draw();
     if (order) {
       drawHands();
     }
@@ -168,6 +177,6 @@ void mousePressed() {
   println(mouseX, mouseY);
 }
 
-Mode getMode(){
+Mode getMode() {
   return (System.getProperty("java.runtime.name") == "Android Runtime") ? Mode.android : Mode.java;
 }
