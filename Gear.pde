@@ -20,16 +20,18 @@ class Gear {
   float oR = 30;
   PVector pos;
   PVector initPos;
+  int Direction;
   float imwidth, imheight;
   color grey = color(82, 82, 73);
   color boundcolor = color(255);
-  Gear(float x, float y, float ir, float or, int spkes, String name) {
+  Gear(float x, float y, float ir, float or, int spkes, int d, String name) {
     println("new Gear");
     this.pos = new PVector(CENTERX + x, CENTERY + y);
     this.initPos = new PVector(x, y);
     //this.pos = new PVector(mouseX + x, mouseY + y);
     this.iR = ir;
     this.oR = or;
+    this.Direction = d;
     this.numSp = spkes;
     this.name = name;
     this.asset = loadShape("assets/"+this.name+".svg");
@@ -76,7 +78,7 @@ class Gear {
     //println(this.oR * scl);
 
     translate(this.pos.x, this.pos.y);
-    rotate(ang);
+    rotate(this.Direction * ang);
     //scale(scl);
     scale(this.oR * 0.0022037036);
     //scale(this.oR * scl);
@@ -101,8 +103,8 @@ class OGear extends Gear {
   int numSlices = 12;
   color orange = color(247, 144, 24);
   color yellow = color(255, 230, 99);
-  OGear(float x, float y, float ir, float or, int spkes, String name) {
-    super(x, y, ir, or, spkes, name);
+  OGear(float x, float y, float ir, float or, int spkes, int d, String name) {
+    super(x, y, ir, or, spkes, d, name);
     boundcolor = orange;
   }
 
