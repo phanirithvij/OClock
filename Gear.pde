@@ -26,6 +26,7 @@ class Gear {
   int Direction;
   float imwidth, imheight;
   color boundcolor = color(255);
+  color dialcolor = pink;
   float currangle = PI/360;
   Gear(float x, float y, float ir, float or, int spkes, int d, String name) {
     println("new Gear");

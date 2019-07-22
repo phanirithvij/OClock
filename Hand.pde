@@ -9,13 +9,15 @@ final float HOUR_HAND_LEN = 180;
 
 class Hand {
   PVector start;
+  Gear org;
   float value;
   float angle;
   HandType type;
-  Hand(PVector center, HandType type) {
+  Hand(Gear org, HandType type) {
     println("new Hand");
-    this.start = center;
+    this.start = org.pos;
     this.type = type;
+    this.org = org;
   }
 
   private void showBounds(float handLength) {
@@ -41,7 +43,7 @@ class Hand {
     translate(this.start.x, this.start.y);
     rotate(angle - PI/2);
     if (this.type == HandType.MIN) {
-      fill(48, 48, 42);
+      fill(handgrey);
       triangle(0, 10, 0, -10, MIN_HAND_LEN, 0);
 
       if (bounds) showBounds(MIN_HAND_LEN);
@@ -49,7 +51,7 @@ class Hand {
       fill(0);
       ellipse(0, 0, 30, 30);
     } else if (this.type == HandType.SEC) {
-      fill(48, 48, 42);
+      fill(handgrey);
       triangle(0, 10, 0, -10, SEC_HAND_LEN, 0);
 
       if (bounds) showBounds(SEC_HAND_LEN);
@@ -57,7 +59,7 @@ class Hand {
       fill(100);
       ellipse(0, 0, 20, 20);
     } else if (this.type == HandType.HOUR) {
-      fill(247, 100, 24);
+      fill(this.org.dialcolor);
       triangle(0, 10, 0, -10, HOUR_HAND_LEN, 0);
 
       if (bounds) showBounds(HOUR_HAND_LEN);

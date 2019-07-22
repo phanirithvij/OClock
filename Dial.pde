@@ -1,7 +1,6 @@
 class Dial {
   PFont mono;
   float time = millis();
-  color grey = color(82, 82, 73);
   Gear org;
   // roman numerals
   Dial(Gear org) {
@@ -22,7 +21,7 @@ class Dial {
         pushMatrix();
         pushStyle();
         rotate((i*TWO_PI/12) -PI/2);
-        fill(orange);
+        fill(og.dialcolor);
         ellipse(300, 0, 30, 30);
         popStyle();
         popMatrix();

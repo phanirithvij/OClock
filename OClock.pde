@@ -12,6 +12,9 @@ Dial dial;
 color orange = color(247, 144, 24);
 color yellow = color(255, 230, 99);
 color grey = color(82, 82, 73);
+color handgrey = color(48, 48, 42);
+color handorange = color(247, 100, 24);
+color pink = color(214, 76, 83);
 
 boolean displayClock = true;
 boolean displayImage = false;
@@ -50,7 +53,10 @@ void setup () {
 }
 
 void initGears() {
-  og = new OGear(0, 0, 54.0, 67, 18, 1, "ogears");
+  og = new OGear(0, 0, 54.0, 67, 18, 1, "watermelon");
+  og.dialcolor = pink;
+  //og = new OGear(0, 0, 54.0, 67, 18, 1, "ogears");
+  //og.dialcolor = handorange;
   gears = new Gear[9];
   gears[0] = new Gear(-12, -240, 43, 55, 8, 1, "ninja");
   gears[1] = new Gear(-47.2, -176.2, 10, 20, 4, -1, "plus");
@@ -64,9 +70,9 @@ void initGears() {
 }
 
 void initHands() {
-  min = new Hand(og.pos, HandType.MIN);
-  hour = new Hand(og.pos, HandType.HOUR);
-  sec = new Hand(og.pos, HandType.SEC);
+  min = new Hand(og, HandType.MIN);
+  hour = new Hand(og, HandType.HOUR);
+  sec = new Hand(og, HandType.SEC);
 }
 
 // clock
@@ -90,6 +96,12 @@ void draw() {
   }
 
   if (displayClock) {
+    pushMatrix();
+    float scl = map(mouseY, 0, height, 1, 4);
+    //println(scl);
+    translate(og.pos.x, og.pos.y);
+    scale(scl);
+    translate(-og.pos.x, -og.pos.y);
     dial.draw();
     if (order) {
       drawHands();
@@ -101,6 +113,7 @@ void draw() {
       drawHands();
     }
   }
+  popMatrix();
 }
 
 void setHands() {
@@ -175,6 +188,14 @@ void keyPressed() {
 
 void mousePressed() {
   println(mouseX, mouseY);
+  if (mouseX > displayWidth/2) {
+    og = new OGear(0, 0, 54.0, 67, 18, 1, "ogears");
+    og.dialcolor = handorange;
+  } else if (mouseX < displayWidth/2) {
+    og = new OGear(0, 0, 54.0, 67, 18, 1, "watermelon");
+    og.dialcolor = pink;
+  }
+  gears[4] = og;
 }
 
 Mode getMode() {
