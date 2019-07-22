@@ -15,6 +15,8 @@ color grey = color(82, 82, 73);
 color handgrey = color(48, 48, 42);
 color handorange = color(247, 100, 24);
 color pink = color(214, 76, 83);
+color tomato = color(255, 72, 0);
+color kiwi = color(100, 195, 125);
 
 boolean displayClock = true;
 boolean displayImage = false;
@@ -190,12 +192,15 @@ void keyPressed() {
 
 void mousePressed() {
   println(mouseX, mouseY);
-  if (mouseX > displayWidth/2) {
+  if (mouseX > 2*displayWidth/3) {
     og.loadAsset("ogears");
     og.dialcolor = handorange;
-  } else if (mouseX < displayWidth/2) {
+  } else if (mouseX < displayWidth/3) {
     og.loadAsset("watermelon");
     og.dialcolor = pink;
+  } else if (mouseX > displayWidth/3 && mouseX < 2*displayWidth/3) {
+    og.loadAsset("kiwi");
+    og.dialcolor = kiwi;
   }
   gears[4] = og;
 }
