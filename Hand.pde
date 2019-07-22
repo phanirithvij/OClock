@@ -59,7 +59,7 @@ class Hand {
       fill(100);
       ellipse(0, 0, 20, 20);
     } else if (this.type == HandType.HOUR) {
-      fill(this.org.dialcolor);
+      fill(og.dialcolor);
       triangle(0, 10, 0, -10, HOUR_HAND_LEN, 0);
 
       if (bounds) showBounds(HOUR_HAND_LEN);

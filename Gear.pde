@@ -37,10 +37,19 @@ class Gear {
     this.Direction = d;
     this.numSp = spkes;
     this.name = name;
+    this.loadAsset();
+  }
+  
+  void loadAsset(){
     this.asset = loadShape("assets/"+this.name+".svg");
     println("orig: name: "+name, this.asset.width, this.asset.height);
     this.imwidth = this.asset.width;
     this.imheight = this.asset.height;
+  }
+  
+  void loadAsset(String name){
+    this.name = name;
+    loadAsset();
   }
 
   void update() {

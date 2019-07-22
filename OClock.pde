@@ -53,10 +53,10 @@ void setup () {
 }
 
 void initGears() {
-  og = new OGear(0, 0, 54.0, 67, 18, 1, "watermelon");
-  og.dialcolor = pink;
-  //og = new OGear(0, 0, 54.0, 67, 18, 1, "ogears");
-  //og.dialcolor = handorange;
+  //og = new OGear(0, 0, 54.0, 67, 18, 1, "watermelon");
+  //og.dialcolor = pink;
+  og = new OGear(0, 0, 54.0, 67, 18, 1, "ogears");
+  og.dialcolor = handorange;
   gears = new Gear[9];
   gears[0] = new Gear(-12, -240, 43, 55, 8, 1, "ninja");
   gears[1] = new Gear(-47.2, -176.2, 10, 20, 4, -1, "plus");
@@ -97,10 +97,12 @@ void draw() {
 
   if (displayClock) {
     pushMatrix();
-    float scl = map(mouseY, 0, height, 1, 4);
-    //println(scl);
+    //float scl = map(mouseY, 0, height, 1, 4);
+    //if (frameCount % 10 == 0)
+    //  println(scl);
     translate(og.pos.x, og.pos.y);
-    scale(scl);
+    if (mode == Mode.android)
+      scale(2.02);
     translate(-og.pos.x, -og.pos.y);
     dial.draw();
     if (order) {
@@ -189,10 +191,10 @@ void keyPressed() {
 void mousePressed() {
   println(mouseX, mouseY);
   if (mouseX > displayWidth/2) {
-    og = new OGear(0, 0, 54.0, 67, 18, 1, "ogears");
+    og.loadAsset("ogears");
     og.dialcolor = handorange;
   } else if (mouseX < displayWidth/2) {
-    og = new OGear(0, 0, 54.0, 67, 18, 1, "watermelon");
+    og.loadAsset("watermelon");
     og.dialcolor = pink;
   }
   gears[4] = og;
