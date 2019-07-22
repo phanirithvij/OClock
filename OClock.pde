@@ -57,18 +57,18 @@ void setup () {
 void initGears() {
   //og = new OGear(0, 0, 54.0, 67, 18, 1, "watermelon");
   //og.dialcolor = pink;
-  og = new OGear(0, 0, 54.0, 67, 18, 1, "ogears");
+  og = new OGear(0, 0, 54.0, 67, 18, 1, new String[]{"ogears"});
   og.dialcolor = handorange;
   gears = new Gear[9];
-  gears[0] = new Gear(-12, -240, 43, 55, 8, 1, "ninja");
-  gears[1] = new Gear(-47.2, -176.2, 10, 20, 4, -1, "plus");
-  gears[2] = new Gear(-78.6, -115.4, 44, 55, 14, 1, "four");
-  gears[3] = new Gear(3.0, -97.0, 22, 36, 9, -1, "pokemon");
+  gears[0] = new Gear(-12, -240, 43, 55, 8, 1, new String[]{"ninja"});
+  gears[1] = new Gear(-47.2, -176.2, 10, 20, 4, -1, new String[]{"plus"});
+  gears[2] = new Gear(-78.6, -115.4, 44, 55, 14, 1, new String[]{"four"});
+  gears[3] = new Gear(3.0, -97.0, 22, 36, 9, -1, new String[]{"pokemon"});
   gears[4] = og;
-  gears[5] = new Gear(-75.4, 78, 30, 48, 12, -1, "wheel");
-  gears[6] = new Gear(61.8, 56.4, 13, 23, 6, -1, "mine");
-  gears[7] = new Gear(-29, 164, 38, 56, 15, 1, "sharingan");
-  gears[8] = new Gear(-98.2, 209.6, 19, 34, 9, -1, "three");
+  gears[5] = new Gear(-75.4, 78, 30, 48, 12, -1, new String[]{"wheel"});
+  gears[6] = new Gear(61.8, 56.4, 13, 23, 6, -1, new String[]{"mine"});
+  gears[7] = new Gear(-29, 164, 38, 56, 15, 1, new String[]{"sharingan"});
+  gears[8] = new Gear(-98.2, 209.6, 19, 34, 9, -1, new String[]{"three"});
 }
 
 void initHands() {
@@ -191,13 +191,13 @@ void keyPressed() {
 void mousePressed() {
   println(mouseX, mouseY);
   if (mouseX > 2*displayWidth/3) {
-    og.loadAsset("ogears");
+    og.loadAssets(new String[]{"ogears"});
     og.dialcolor = handorange;
   } else if (mouseX < displayWidth/3) {
-    og.loadAsset("watermelon");
+    og.loadAssets(new String[]{"watermelon"});
     og.dialcolor = pink;
   } else if (mouseX > displayWidth/3 && mouseX < 2*displayWidth/3) {
-    og.loadAsset("kiwi2");
+    og.loadAssets(new String[]{"kiwi-back", "kiwi"});
     og.dialcolor = kiwi;
   }
   gears[4] = og;

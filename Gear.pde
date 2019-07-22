@@ -14,8 +14,8 @@
 
 class Gear {
   float time=millis();
-  String name;
-  PShape asset;
+  String[] names;
+  PShape[] assets;
   int numSp = 6;
   float driverRadius = 67;
   int driverTeeth = 18;
@@ -28,7 +28,7 @@ class Gear {
   color boundcolor = color(255);
   color dialcolor = pink;
   float currangle = PI/360;
-  Gear(float x, float y, float ir, float or, int spkes, int d, String name) {
+  Gear(float x, float y, float ir, float or, int spkes, int d, String[] namess) {
     println("new Gear");
     this.pos = new PVector(CENTERX + x, CENTERY + y);
     this.initPos = new PVector(x, y);
@@ -36,20 +36,30 @@ class Gear {
     this.oR = or;
     this.Direction = d;
     this.numSp = spkes;
-    this.name = name;
-    this.loadAsset();
+    this.names = new String[namess.length];
+    for (int i=0; i < namess.length; i++){
+      this.names[i] = namess[i];
+    }
+    this.loadAssets();
   }
 
-  void loadAsset(){
-    this.asset = loadShape("assets/"+this.name+".svg");
-    println("orig: name: "+name, this.asset.width, this.asset.height);
-    this.imwidth = this.asset.width;
-    this.imheight = this.asset.height;
+  void loadAssets(){
+    // to load or refresh assets
+    this.assets = new PShape[this.names.length];
+    for (int i=0; i < this.assets.length; i++){
+      this.assets[i] = loadShape("assets/"+this.names[i]+".svg");
+      println("orig: name: "+ this.names[i], this.assets[i].width, this.assets[i].height);
+    }
+    this.imwidth = this.assets[0].width;
+    this.imheight = this.assets[0].height;
   }
 
-  void loadAsset(String name){
-    this.name = name;
-    loadAsset();
+  void loadAssets(String[] namess){
+    this.names = new String[namess.length];
+    for (int i=0; i < namess.length; i++){
+      this.names[i] = namess[i];
+    }
+    loadAssets();
   }
 
   void update() {
@@ -98,8 +108,12 @@ class Gear {
     scale(this.oR * 0.0022037036);
 
     // translate to svg's center
-    translate(-this.asset.width/2, -this.asset.height/2);
-    shape(this.asset, 0, 0);
+    for (int i=0; i< this.assets.length; i++){
+      pushMatrix();
+      translate(-this.assets[i].width/2, -this.assets[i].height/2);
+      shape(this.assets[i], 0, 0);
+      popMatrix();
+    }
 
     // debug bounds
     if (bounds) showBounds();
@@ -111,8 +125,8 @@ class Gear {
 
 class OGear extends Gear {
   int numSlices = 12;
-  OGear(float x, float y, float ir, float or, int spkes, int d, String name) {
-    super(x, y, ir, or, spkes, d, name);
+  OGear(float x, float y, float ir, float or, int spkes, int d, String[] namess) {
+    super(x, y, ir, or, spkes, d, namess);
     boundcolor = orange;
   }
   // r - 50 inner slices
