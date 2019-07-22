@@ -22,7 +22,7 @@ class Dial {
         pushStyle();
         rotate((i*TWO_PI/12) -PI/2);
         fill(og.dialcolor);
-        ellipse(300, 0, 30, 30);
+        ellipse(217, 0, 30, 30);
         popStyle();
         popMatrix();
         continue;

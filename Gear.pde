@@ -39,14 +39,14 @@ class Gear {
     this.name = name;
     this.loadAsset();
   }
-  
+
   void loadAsset(){
     this.asset = loadShape("assets/"+this.name+".svg");
     println("orig: name: "+name, this.asset.width, this.asset.height);
     this.imwidth = this.asset.width;
     this.imheight = this.asset.height;
   }
-  
+
   void loadAsset(String name){
     this.name = name;
     loadAsset();
@@ -119,5 +119,4 @@ class OGear extends Gear {
   // r - 8  innermost light orange circle
   // r - 54 outer light orange circle
   // r - 67 outermost radius containing spikes inside
-  // offsetAngle - 0.55850565 to align with image
 }

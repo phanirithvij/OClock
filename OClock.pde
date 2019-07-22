@@ -98,7 +98,6 @@ void draw() {
   }
 
   if (displayClock) {
-    pushMatrix();
     //float scl = map(mouseY, 0, height, 1, 4);
     //if (frameCount % 10 == 0)
     //  println(scl);
@@ -117,7 +116,6 @@ void draw() {
       drawHands();
     }
   }
-  popMatrix();
 }
 
 void setHands() {
@@ -199,7 +197,7 @@ void mousePressed() {
     og.loadAsset("watermelon");
     og.dialcolor = pink;
   } else if (mouseX > displayWidth/3 && mouseX < 2*displayWidth/3) {
-    og.loadAsset("kiwi");
+    og.loadAsset("kiwi2");
     og.dialcolor = kiwi;
   }
   gears[4] = og;
