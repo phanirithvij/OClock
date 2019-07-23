@@ -55,11 +55,13 @@ class Gear {
   }
 
   void loadAssets(String[] namess){
+    float timenow = millis();
     this.names = new String[namess.length];
     for (int i=0; i < namess.length; i++){
       this.names[i] = namess[i];
     }
     loadAssets();
+    println("time:", millis() - timenow);
   }
 
   void update() {

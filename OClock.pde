@@ -190,15 +190,18 @@ void keyPressed() {
 
 void mousePressed() {
   println(mouseX, mouseY);
-  if (mouseX > 2*displayWidth/3) {
+  if (mouseX > 3*displayWidth/4) {
     og.loadAssets(new String[]{"ogears"});
     og.dialcolor = handorange;
-  } else if (mouseX < displayWidth/3) {
+  } else if (mouseX < displayWidth/4) {
     og.loadAssets(new String[]{"watermelon"});
     og.dialcolor = pink;
-  } else if (mouseX > displayWidth/3 && mouseX < 2*displayWidth/3) {
-    og.loadAssets(new String[]{"kiwi-back", "kiwi"});
+  } else if (mouseX > displayWidth/4 && mouseX < 2*displayWidth/4) {
+    og.loadAssets(new String[]{"kiwi"});
     og.dialcolor = kiwi;
+  } else if (mouseX > 2*displayWidth/4 && mouseX < 3*displayWidth/4) {
+    og.loadAssets(new String[]{"tomato"});
+    og.dialcolor = tomato;
   }
   gears[4] = og;
 }

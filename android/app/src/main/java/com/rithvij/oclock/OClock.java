@@ -1,42 +1,30 @@
 package com.rithvij.oclock;
 
-import processing.core.*; 
-import processing.data.*; 
-import processing.event.*; 
-import processing.opengl.*; 
-
-import java.util.HashMap; 
-import java.util.ArrayList; 
-import java.io.File; 
-import java.io.BufferedReader; 
-import java.io.PrintWriter; 
-import java.io.InputStream; 
-import java.io.OutputStream; 
-import java.io.IOException; 
+import processing.core.*;
 
 public class OClock extends PApplet {
 
-PImage oclock;
-Gear[] gears;
-Gear og;
-Hand min;
-Hand hour;
-Hand sec;
-boolean displayClock = true;
-boolean displayImage = false;
-boolean doUpdate = true;
-boolean order = false;
-boolean bounds = false;
+private PImage oclock;
+private Gear[] gears;
+private Gear og;
+private Hand min;
+private Hand hour;
+private Hand sec;
+private boolean displayClock = true;
+private boolean displayImage = false;
+private boolean doUpdate = true;
+private boolean order = false;
+private boolean bounds = false;
 
 // <enum>
-final int HOUR = 312334;
-final int MIN  = 321867;
-final int SEC  = 318783;
+private final int HOUR = 312334;
+private final int MIN  = 321867;
+private final int SEC  = 318783;
 //
 
-final float MIN_HAND_LEN = 290;
-final float SEC_HAND_LEN = 300;
-final float HOUR_HAND_LEN = 180;
+private final float MIN_HAND_LEN = 290;
+private final float SEC_HAND_LEN = 300;
+private final float HOUR_HAND_LEN = 180;
 
 float CENTERX = 961, CENTERY = 540;
 //final float CENTERX = 500, CENTERY = 500;
@@ -55,7 +43,7 @@ public void setup () {
   setHands();
 }
 
-public void initGears() {
+private void initGears() {
   //og = new OGear(0, 0, 54.0, 67, 18, "drawing");
   og = new OGear(0, 0, 54.0f, 67, 18, "ogears");
   gears = new Gear[9];
@@ -70,7 +58,7 @@ public void initGears() {
   gears[8] = new Gear(-98.2f, 209.6f, 19, 34, 9, "three");
 }
 
-public void initHands() {
+private void initHands() {
   min = new Hand(og.pos, 272, PI/6, MIN);
   hour = new Hand(og.pos, 171, 5*PI/6, HOUR);
   sec = new Hand(og.pos, 272, -PI/2, SEC);
@@ -111,14 +99,14 @@ public void draw() {
   }
 }
 
-public void setHands() {
+private void setHands() {
   min.value = minute();
   sec.value = second();
   hour.value = hour();
   //println(hour.value, min.value, sec.value);
 }
 
-public void drawHands() {
+private void drawHands() {
   min.draw();
   sec.draw();
   hour.draw();
@@ -175,7 +163,7 @@ public void keyPressed() {
 
   //https://forum.processing.org/two/discussion/comment/102455/#Comment_102455
   if ( key == 'p' ) looping = !looping;
-  if ( key == 'r' && looping==false ) redraw();
+  if ( key == 'r' && !looping) redraw();
 
   if (key == 'x') {
     saveFrame("images/line-######.png");
@@ -202,9 +190,9 @@ public void mousePressed() {
 class Gear {
   String name;
   PShape asset;
-  int numSp = 6;
-  float iR = 10;
-  float oR = 30;
+  int numSp;
+  float iR;
+  float oR;
   PVector pos;
   PVector initPos;
   float imwidth, imheight;
@@ -226,10 +214,7 @@ class Gear {
     //println("upda: name: "+name, );
   }
 
-  public void update() {
-  }
-
-  private void showBounds() {
+    private void showBounds() {
     //pushMatrix();
     pushStyle();
     noFill();
@@ -285,7 +270,6 @@ class Gear {
 }
 
 class OGear extends Gear {
-  int numSlices = 12;
   int orange = color(247, 144, 24);
   int yellow = color(255, 230, 99);
   OGear(float x, float y, float ir, float or, int spkes, String name) {
@@ -322,8 +306,7 @@ class OGear extends Gear {
 }
 class Hand {
   PVector start;
-  float offAngle = PI / 180;
-  float initAngle;
+    float initAngle;
   float angle;
   float r;
   float value;
