@@ -208,11 +208,8 @@ class OClock : PApplet() {
             this.pos = PVector(centerx + x, centery + y)
             this.initPos = PVector(x, y)
             this.names = Array(namess.size) { "" }
-            var i = 0
-            while (i < namess.size){
+            for (i in namess.indices){
                 this.names[i] = namess[i]
-                kotlin.io.println("fuck this ${this.names[i]}")
-                i++
             }
             this.loadAssets()
         }
@@ -221,7 +218,7 @@ class OClock : PApplet() {
             // to load or refresh assets
             this.assets = Array(this.names.size) { PShape() }
             for (i in this.assets.indices) {
-                kotlin.io.println("$i, ${this.names[i]}.svg")
+//                kotlin.io.println("$i, ${this.names[i]}.svg")
                 if (this.names[i].isNotEmpty())
                     this.assets[i] = loadShape("assets/" + this.names[i] + ".svg")
                 println("orig: name: " + this.names[i], this.assets[i].width, this.assets[i].height)
