@@ -1,4 +1,4 @@
-package processing.test.oclock
+package com.rithvij.oclock
 
 import processing.android.PWallpaper
 import processing.core.PApplet

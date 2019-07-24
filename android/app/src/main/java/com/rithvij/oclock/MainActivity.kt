@@ -1,4 +1,4 @@
-package processing.test.oclock
+package com.rithvij.oclock
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

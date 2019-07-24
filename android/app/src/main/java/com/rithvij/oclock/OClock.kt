@@ -1,4 +1,4 @@
-package processing.test.oclock
+package com.rithvij.oclock
 
 import processing.core.*
 
@@ -32,8 +32,8 @@ class OClock : PApplet() {
     var version = "v0.0.4-alpha"
 
     // will be set to (displayWidth/2, displayHeight/2) in draw
-    private var centerx = 961f
-    private var centery = 540f
+    private var centerx = displayWidth / 2
+    private var centery = displayHeight / 2
 
     private val minHandLen = 290f
     private val secHandLen = 300f
@@ -245,8 +245,8 @@ class OClock : PApplet() {
         }
 
         fun draw() {
-            centerx = (width / 2).toFloat()
-            centery = (height / 2).toFloat()
+            centerx = (width / 2)
+            centery = (height / 2)
             this.pos.x = this.initPos.x + centerx
             this.pos.y = this.initPos.y + centery
 
