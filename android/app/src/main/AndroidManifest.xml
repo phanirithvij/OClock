@@ -27,7 +27,7 @@
 
         <service
             android:name=".MainService"
-            android:label="OClock"
+            android:label="@string/gear_clock"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />

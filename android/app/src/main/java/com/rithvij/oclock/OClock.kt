@@ -3,9 +3,6 @@ package com.rithvij.oclock
 import processing.core.*
 
 class OClock : PApplet() {
-
-    private lateinit var oclock: PImage
-
     private lateinit var gears: Array<Gear>
     private lateinit var og: OGear
 
@@ -44,12 +41,9 @@ class OClock : PApplet() {
     }
 
     override fun setup() {
-        oclock = loadImage("o'clock.png")
-
         initGears()
         initHands()
         setHands()
-
         dial = Dial(og)
     }
 
