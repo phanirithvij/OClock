@@ -1,5 +1,6 @@
 package com.rithvij.oclock
 
+import androidx.preference.PreferenceManager
 import processing.core.*
 
 class OClock : PApplet() {
@@ -26,6 +27,12 @@ class OClock : PApplet() {
     private var order = false
     private var bounds = false
 
+    // settings
+    private var cycle = false
+    private var duration = -1
+    private var theme = "ogears"
+    private var firstTime = true
+
     var version = "v0.0.4-alpha"
 
     // will be set to (displayWidth/2, displayHeight/2) in draw
@@ -41,6 +48,14 @@ class OClock : PApplet() {
     }
 
     override fun setup() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        cycle = prefs.getBoolean("cycle", cycle)
+        duration = prefs.getString("duration", "$duration")!!.toInt()
+        theme = prefs.getString("theme", theme)!!
+        firstTime = prefs.getBoolean("init", firstTime)
+
+        kotlin.io.println("$cycle $duration $theme $firstTime")
+
         initGears()
         initHands()
         setHands()
@@ -63,9 +78,9 @@ class OClock : PApplet() {
     }
 
     private fun initHands() {
-        min = Hand(og, HandType.MIN)
-        hour = Hand(og, HandType.HOUR)
-        sec = Hand(og, HandType.SEC)
+        min = Hand(HandType.MIN)
+        hour = Hand(HandType.HOUR)
+        sec = Hand(HandType.SEC)
     }
 
     override fun draw() {
@@ -102,7 +117,7 @@ class OClock : PApplet() {
     }
 
     override fun mousePressed() {
-        println(mouseX, mouseY)
+//        println(mouseX, mouseY)
         if (mouseX > 3 * displayWidth / 4) {
             og.loadAssets(arrayOf("ogears"))
             og.dialcolor = handorange
@@ -189,18 +204,16 @@ class OClock : PApplet() {
         private var names: Array<String>
         private lateinit var assets: Array<PShape>
         private var driverTeeth = 18
-        var pos: PVector
-        private var initPos: PVector
-        private var imwidth: Float = 0.toFloat()
-        private var imheight: Float = 0.toFloat()
+        var pos: PVector = PVector(centerx + x, centery + y)
+        private var initPos: PVector = PVector(x, y)
+        private var imwidth: Float = 0f
+        private var imheight: Float = 0f
         var boundcolor = color(255)
         var dialcolor = watermelon
         private var currangle = PConstants.PI / 360
 
         init {
-            println("new Gear")
-            this.pos = PVector(centerx + x, centery + y)
-            this.initPos = PVector(x, y)
+//            println("new Gear")
             this.names = Array(namess.size) { "" }
             for (i in namess.indices) {
                 this.names[i] = namess[i]
@@ -215,18 +228,18 @@ class OClock : PApplet() {
 //                kotlin.io.println("$i, ${this.names[i]}.svg")
                 if (this.names[i].isNotEmpty())
                     this.assets[i] = loadShape("assets/" + this.names[i] + ".svg")
-                println("orig: name: " + this.names[i], this.assets[i].width, this.assets[i].height)
+//                println("orig: name: " + this.names[i], this.assets[i].width, this.assets[i].height)
             }
             this.imwidth = this.assets[0].width
             this.imheight = this.assets[0].height
         }
 
         fun loadAssets(namess: Array<String>) {
-            val timenow = millis().toFloat()
+//            val timenow = millis().toFloat()
             this.names = Array(namess.size) { "" }
             System.arraycopy(namess, 0, this.names, 0, namess.size)
             loadAssets()
-            println("time:", millis() - timenow)
+//            println("time:", millis() - timenow)
         }
 
         private fun showBounds() {
@@ -286,15 +299,10 @@ class OClock : PApplet() {
         HOUR, MIN, SEC
     }
 
-    internal inner class Hand(var org: Gear, var type: HandType) {
-        private var start: PVector
-        var value: Float = 0.toFloat()
-        private var angle: Float = 0.toFloat()
-
-        init {
-            println("new Hand")
-            this.start = org.pos
-        }
+    internal inner class Hand(var type: HandType) {
+        private var start: PVector = og.pos
+        var value: Float = 0f
+        private var angle: Float = 0f
 
         private fun showBounds(handLength: Float) {
             pushStyle()
