@@ -56,7 +56,7 @@ class OClock : PApplet() {
     private fun initGears() {
         og = OGear(0f, 0f, 67f, 18, 1, arrayOf("ogears"))
         og.dialcolor = handorange
-        gears = Array(9) { Gear(0f,0f,0f,0,1, arrayOf("")) }
+        gears = Array(9) { Gear(0f, 0f, 0f, 0, 1, arrayOf("")) }
         gears[0] = Gear(-12f, -240f, 55f, 8, 1, arrayOf("ninja"))
         gears[1] = Gear(-47.2f, -176.2f, 20f, 4, -1, arrayOf("plus"))
         gears[2] = Gear(-78.6f, -115.4f, 55f, 14, 1, arrayOf("four"))
@@ -208,7 +208,7 @@ class OClock : PApplet() {
             this.pos = PVector(centerx + x, centery + y)
             this.initPos = PVector(x, y)
             this.names = Array(namess.size) { "" }
-            for (i in namess.indices){
+            for (i in namess.indices) {
                 this.names[i] = namess[i]
             }
             this.loadAssets()
@@ -245,8 +245,8 @@ class OClock : PApplet() {
         }
 
         fun draw() {
-            centerx = (width shr 1).toFloat()
-            centery = (height shr 1).toFloat()
+            centerx = (width / 2).toFloat()
+            centery = (height / 2).toFloat()
             this.pos.x = this.initPos.x + centerx
             this.pos.y = this.initPos.y + centery
 
