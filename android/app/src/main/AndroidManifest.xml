@@ -1,14 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="processing.test.oclock">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="processing.test.oclock">
 
-    <uses-feature android:name="android.software.live_wallpaper"/>
-    <application android:icon="@drawable/icon" android:label="OClock">
-        <service android:label="OClock" android:name=".MainService" android:permission="android.permission.BIND_WALLPAPER">
+    <uses-feature android:name="android.software.live_wallpaper" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@drawable/icon"
+        android:label="OClock"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat">
             <intent-filter>
-                <action android:name="android.service.wallpaper.WallpaperService"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data android:name="android.service.wallpaper" android:resource="@xml/wallpaper"/>
+        </activity>
+
+        <service
+            android:name=".MainService"
+            android:label="OClock"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/wallpaper" />
         </service>
-        <activity android:name="processing.android.PermissionRequestor"/>
+
+        <activity android:name="processing.android.PermissionRequestor" />
     </application>
+
 </manifest>
