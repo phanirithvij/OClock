@@ -14,7 +14,7 @@ color yellow = color(255, 230, 99);
 color grey = color(82, 82, 73);
 color handgrey = color(48, 48, 42);
 color handorange = color(247, 100, 24);
-color pink = color(214, 76, 83);
+color watermelon = color(214, 76, 83);
 color tomato = color(255, 72, 0);
 color kiwi = color(100, 195, 125);
 
@@ -56,7 +56,7 @@ void setup () {
 
 void initGears() {
   //og = new OGear(0, 0, 54.0, 67, 18, 1, "watermelon");
-  //og.dialcolor = pink;
+  //og.dialcolor = watermelon;
   og = new OGear(0, 0, 54.0, 67, 18, 1, new String[]{"ogears"});
   og.dialcolor = handorange;
   gears = new Gear[9];
@@ -104,6 +104,7 @@ void draw() {
     translate(og.pos.x, og.pos.y);
     if (mode == Mode.android)
       scale(2.02);
+    else scale(1.5);
     translate(-og.pos.x, -og.pos.y);
     dial.draw();
     if (order) {
@@ -195,7 +196,7 @@ void mousePressed() {
     og.dialcolor = handorange;
   } else if (mouseX < displayWidth/4) {
     og.loadAssets(new String[]{"watermelon"});
-    og.dialcolor = pink;
+    og.dialcolor = watermelon;
   } else if (mouseX > displayWidth/4 && mouseX < 2*displayWidth/4) {
     og.loadAssets(new String[]{"kiwi"});
     og.dialcolor = kiwi;
