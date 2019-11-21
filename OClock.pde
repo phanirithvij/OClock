@@ -168,10 +168,10 @@ void keyPressed() {
   } else if (key == 'p') {
     //og.iR --;
     //og.oR --;
-    for (int i=0; i < 9; i++) {
-      gears[i].oR -= 1;
-    }
-    println(og.oR);
+    //for (int i=0; i < 9; i++) {
+      //gears[i].oR -= 1;
+    //}
+    //println(og.oR);
   }
 
   if (key == ' ') displayClock = !displayClock;
