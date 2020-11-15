@@ -24,7 +24,12 @@ boolean doUpdate = true;
 boolean order = false;
 boolean bounds = false;
 
+// TODO read from environment
+boolean enableKeys = false;
+
 String version  = "v0.0.4-alpha";
+
+float scaleC = 1.0;
 
 enum Mode {
   java, android
@@ -37,6 +42,8 @@ float CENTERX = 961, CENTERY = 540;
 
 void settings() {
   println(mode);
+ // https://github.com/processing/processing/issues/6061#issuecomment-650647689
+  System.setProperty("jogl.disable.openglcore", "false");
   fullScreen(P2D);
   //size(displayWidth, displayHeight);
 }
@@ -104,7 +111,7 @@ void draw() {
     translate(og.pos.x, og.pos.y);
     if (mode == Mode.android)
       scale(2.02);
-    else scale(1.5);
+    else scale(scaleC);
     translate(-og.pos.x, -og.pos.y);
     dial.draw();
     if (order) {
@@ -132,60 +139,68 @@ void drawHands() {
 }
 
 void keyPressed() {
-  if (key == 'd') {
-    //og.pos.x+=5;
-    for (int i=0; i < 9; i++) {
-      gears[i].pos.x += 5;
+  if (enableKeys) {
+    if (key == 'd') {
+      //og.pos.x+=5;
+      for (int i=0; i < 9; i++) {
+        gears[i].pos.x += 5;
+      }
+      println("posx", og.pos.x);
+    } else if (key == 'a') {
+      //og.pos.x-=5;
+      for (int i=0; i < 9; i++) {
+        gears[i].pos.x -= 5;
+      }
+      println("posx", og.pos.x);
     }
-    println("posx", og.pos.x);
-  } else if (key == 'a') {
-    //og.pos.x-=5;
-    for (int i=0; i < 9; i++) {
-      gears[i].pos.x -= 5;
+    if (key == 'w') {
+      //og.pos.y-=5;
+      for (int i=0; i < 9; i++) {
+        gears[i].pos.y -= 5;
+      }
+      println("posy", og.pos.y);
+    } else if (key == 's') {
+      //og.pos.y+=5;
+      for (int i=0; i < 9; i++) {
+        gears[i].pos.y += 5;
+      }
+      println("posy", og.pos.y);
     }
-    println("posx", og.pos.x);
-  }
-  if (key == 'w') {
-    //og.pos.y-=5;
-    for (int i=0; i < 9; i++) {
-      gears[i].pos.y -= 5;
+    if (key == 'o') {
+      //og.iR ++;
+      //og.oR ++;
+      for (int i=0; i < 9; i++) {
+        gears[i].oR += 1;
+      }
+      println(og.oR);
+    } else if (key == 'p') {
+      //og.iR --;
+      //og.oR --;
+      for (int i=0; i < 9; i++) {
+        gears[i].oR -= 1;
+      }
+      //println(og.oR);
     }
-    println("posy", og.pos.y);
-  } else if (key == 's') {
-    //og.pos.y+=5;
-    for (int i=0; i < 9; i++) {
-      gears[i].pos.y += 5;
-    }
-    println("posy", og.pos.y);
-  }
-  if (key == 'o') {
-    //og.iR ++;
-    //og.oR ++;
-    for (int i=0; i < 9; i++) {
-      gears[i].oR += 1;
-    }
-    println(og.oR);
-  } else if (key == 'p') {
-    //og.iR --;
-    //og.oR --;
-    //for (int i=0; i < 9; i++) {
-      //gears[i].oR -= 1;
-    //}
-    //println(og.oR);
-  }
 
-  if (key == ' ') displayClock = !displayClock;
-  if (key == 'n') displayImage = !displayImage;
-  if (key == 'v') doUpdate = !doUpdate;
-  if (key == 'm') order = !order;
-  if (key == 'b') bounds = !bounds;
+    if (key == ' ') displayClock = !displayClock;
+    if (key == 'n') displayImage = !displayImage;  
+    if (key == 'v') doUpdate = !doUpdate;
+    if (key == 'm') order = !order;
+    if (key == 'b') bounds = !bounds;
 
-  //https://forum.processing.org/two/discussion/comment/102455/#Comment_102455
-  if ( key == 'p' ) looping = !looping;
-  if ( key == 'r' && looping==false ) redraw();
+    //https://forum.processing.org/two/discussion/comment/102455/#Comment_102455
+    if ( key == 'p' ) looping = !looping;
+    if ( key == 'r' && looping==false ) redraw();
+    if ( key == 'q') {
+      scaleC -= .1;
+    }
+    if ( key == 'e' ) {
+      scaleC += .1;
+    }
 
-  if (key == 'x') {
-    saveFrame("images/"+version+"-######.png");
+    if (key == 'x') {
+      saveFrame("images/"+version+"-######.png");
+    }
   }
 }
 
@@ -206,7 +221,10 @@ void mousePressed() {
   }
   gears[4] = og;
 }
+//File file = new File(".");
 
 Mode getMode() {
+  println(sketchPath());
+  //println(file.getAbsolutePath());
   return (System.getProperty("java.runtime.name") == "Android Runtime") ? Mode.android : Mode.java;
 }
