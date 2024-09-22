@@ -1,7 +1,10 @@
 package com.rithvij.oclock
 
 import androidx.preference.PreferenceManager
-import processing.core.*
+import processing.core.PApplet
+import processing.core.PFont
+import processing.core.PShape
+import processing.core.PVector
 
 class OClock : PApplet() {
     private lateinit var gears: Array<Gear>
@@ -45,7 +48,7 @@ class OClock : PApplet() {
     private val hourHandLen = 180f
 
     override fun settings() {
-        fullScreen(PConstants.P2D)
+        fullScreen(P2D)
     }
 
     override fun setup() {
@@ -106,9 +109,9 @@ class OClock : PApplet() {
     }
 
     private fun setHands() {
-        min.value = PApplet.minute().toFloat()
-        sec.value = PApplet.second().toFloat()
-        hour.value = PApplet.hour().toFloat()
+        min.value = minute().toFloat()
+        sec.value = second().toFloat()
+        hour.value = hour().toFloat()
     }
 
     private fun drawHands() {
@@ -141,7 +144,7 @@ class OClock : PApplet() {
 
         init {
             textFont(mono)
-            textAlign(PConstants.CENTER)
+            textAlign(CENTER)
         }
 
         fun draw() {
@@ -153,7 +156,7 @@ class OClock : PApplet() {
                 if (i == 6 || i == 12) {
                     pushMatrix()
                     pushStyle()
-                    rotate(i * PConstants.TWO_PI / 12 - PConstants.PI / 2)
+                    rotate(i * TWO_PI / 12 - PI / 2)
                     fill(og.dialcolor)
                     ellipse(217f, 0f, 30f, 30f)
                     popStyle()
@@ -163,9 +166,9 @@ class OClock : PApplet() {
                 // deal with i == 7
                 // deal with roman rotations
                 pushMatrix()
-                rotate(i * PConstants.TWO_PI / 12 - PConstants.PI / 2)
+                rotate(i * TWO_PI / 12 - PI / 2)
                 translate(217f, 0f)
-                rotate(PConstants.PI / 2)
+                rotate(PI / 2)
                 translate(-217f, 0f)
                 text(getRoman(i), 217f, 0f)
                 popMatrix()
@@ -199,7 +202,7 @@ class OClock : PApplet() {
         y: Float,
         private var oR: Float,
         private var numSp: Int,
-        private var Direction: Int,
+        private var direction: Int,
         namess: Array<String>
     ) {
         private var names: Array<String>
@@ -211,7 +214,7 @@ class OClock : PApplet() {
         private var imheight: Float = 0f
         var boundcolor = color(255)
         var dialcolor = watermelon
-        private var currangle = PConstants.PI / 360
+        private var currangle = PI / 360
 
         init {
 //            println("new Gear")
@@ -236,11 +239,11 @@ class OClock : PApplet() {
         }
 
         fun loadAssets(namess: Array<String>) {
-//            val timenow = millis().toFloat()
+//            val time_now = millis().toFloat()
             this.names = Array(namess.size) { "" }
             System.arraycopy(namess, 0, this.names, 0, namess.size)
             loadAssets()
-//            println("time:", millis() - timenow)
+//            println("time:", millis() - time_now)
         }
 
         private fun showBounds() {
@@ -262,9 +265,9 @@ class OClock : PApplet() {
             pushStyle()
 
             translate(this.pos.x, this.pos.y)
-            this.currangle += PConstants.PI / 360 * this.driverTeeth / this.numSp
+            this.currangle += PI / 360 * this.driverTeeth / this.numSp
 
-            rotate(this.Direction * this.currangle)
+            rotate(this.direction * this.currangle)
             scale(this.oR * 0.0022037036f)
 
             // translate to svg's center
@@ -287,10 +290,10 @@ class OClock : PApplet() {
         x: Float,
         y: Float,
         or: Float,
-        spkes: Int,
+        spikes: Int,
         d: Int,
         namess: Array<String>
-    ) : Gear(x, y, or, spkes, d, namess) {
+    ) : Gear(x, y, or, spikes, d, namess) {
         init {
             boundcolor = orange
         }
@@ -316,9 +319,9 @@ class OClock : PApplet() {
 
         fun draw() {
             if (this.type == HandType.MIN || this.type == HandType.SEC) {
-                this.angle = map(this.value, 0f, 60f, 0f, 2 * PConstants.PI)
+                this.angle = map(this.value, 0f, 60f, 0f, 2 * PI)
             } else {
-                this.angle = map(this.value % 12, 0f, 12f, 0f, 2 * PConstants.PI)
+                this.angle = map(this.value % 12, 0f, 12f, 0f, 2 * PI)
             }
 
             pushMatrix()
@@ -326,7 +329,7 @@ class OClock : PApplet() {
             // disable Hand outline
             strokeWeight(0f)
             translate(this.start.x, this.start.y)
-            rotate(angle - PConstants.PI / 2)
+            rotate(angle - PI / 2)
             when {
                 this.type == HandType.MIN -> {
                     fill(handgrey)
