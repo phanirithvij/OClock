@@ -7,6 +7,17 @@ Can run in the desktop, `processing-java --sketch=$PWD/OClock --run`
 The project was exported in processing v3 into android and worked upon in android-studio (java -> kotlin, etc.)
 So consider `OClock/` dir which has .pde files outdated, need to edit the kotlin code.
 
+## develop
+
+- `nix-shell` should work
+- `nix-shell -A <shell> shells.nix` should work
+- `nix develop .#ci` see `nix flake show`
+
+## TODO
+
+- [ ] build android apk and bundles without android studio
+- [ ] figure out signing too, prod+debug
+
 **Look:**
 
 -   [0.0.1](https://github.com/phanirithvij/O-Clock/releases/tag/0.0.1): [![screen](images/0.0.1.png)](images/)

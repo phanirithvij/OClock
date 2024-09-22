@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.flake = false;
   };
   outputs =
     {
@@ -42,6 +43,7 @@
               NC='\033[0m'
               printf "''${RED}direnv + fhsenv unsupported''${NC} run\n"
               echo nix develop .#ci
+              exit 1
             else
               nix develop .#ci
             fi
@@ -51,14 +53,12 @@
         lint = pkgs.mkShell {
           packages = [ pkgs.nixfmt-rfc-style ];
         };
-        studio = pkgs.mkShell {
+        ide = pkgs.mkShell {
           packages = with pkgs; [
             android-studio
             processing'
           ];
         };
-        # TODO: build without androidstudio
-        # see https://github.com/processing/processing-android/pull/772
         ci =
           let
             jdk = pkgs.jdk17_headless;
