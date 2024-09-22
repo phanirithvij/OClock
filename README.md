@@ -2,6 +2,11 @@
 
 A live wallpaper clock made using Java Processing
 
+Can run in the desktop, `processing-java --sketch=$PWD/OClock --run`
+
+The project was exported in processing v3 into android and worked upon in android-studio (java -> kotlin, etc.)
+So consider `OClock/` dir which has .pde files outdated, need to edit the kotlin code.
+
 **Look:**
 
 -   [0.0.1](https://github.com/phanirithvij/O-Clock/releases/tag/0.0.1): [![screen](images/0.0.1.png)](images/)
