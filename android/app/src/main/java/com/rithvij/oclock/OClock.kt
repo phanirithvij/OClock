@@ -14,6 +14,7 @@ class OClock : PApplet() {
     private lateinit var dial: Dial
 
     private val orange = color(247, 144, 24)
+
     //private int yellow = color(255, 230, 99);
     private val grey = color(82, 82, 73)
     private val handgrey = color(48, 48, 42)
@@ -336,6 +337,7 @@ class OClock : PApplet() {
                     fill(0)
                     ellipse(0f, 0f, 30f, 30f)
                 }
+
                 this.type == HandType.SEC -> {
                     fill(handgrey)
                     triangle(0f, 10f, 0f, -10f, secHandLen, 0f)
@@ -345,6 +347,7 @@ class OClock : PApplet() {
                     fill(100)
                     ellipse(0f, 0f, 20f, 20f)
                 }
+
                 this.type == HandType.HOUR -> {
                     fill(og.dialcolor)
                     triangle(0f, 10f, 0f, -10f, hourHandLen, 0f)

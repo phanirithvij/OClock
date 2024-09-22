@@ -40,13 +40,12 @@
             app:entries="@array/duration_entries"
             app:entryValues="@array/duration_values"
             app:key="duration"
-            app:title="Duration"
             app:summary="Select the duration"
+            app:title="Duration"
             app:useSimpleSummaryProvider="true" />
 
         <!-- A hidden preference to determine if settingsActivity was ever opened-->
-        <SwitchPreferenceCompat
-            app:key="init"/>
+        <SwitchPreferenceCompat app:key="init" />
 
     </PreferenceCategory>
 
