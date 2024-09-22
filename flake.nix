@@ -1,14 +1,14 @@
 {
   description = "android apk build nix";
   inputs = {
-    flake-compat.url = "github:edolstra/flake-compat";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    flake-compat.url = "github:edolstra/flake-compat";
   };
   outputs =
     {
       self,
-      flake-compat,
       nixpkgs,
+      flake-compat,
     }:
     let
       system = "x86_64-linux";
@@ -37,7 +37,14 @@
         default = pkgs.mkShellNoCC {
           # see https://discourse.nixos.org/t/user-environments-direnv-lorri-bazel-buildfhsuserenv/12798/20
           shellHook = ''
-            nix develop .#ci
+            if [ -n "$DIRENV_IN_ENVRC" ]; then
+              RED='\033[0;31m'
+              NC='\033[0m'
+              printf "''${RED}direnv + fhsenv unsupported''${NC} run\n"
+              echo nix develop .#ci
+            else
+              nix develop .#ci
+            fi
           '';
           inputsFrom = [ lint ];
         };
@@ -65,6 +72,7 @@
                 includeNDK = false;
               }).androidsdk;
           in
+          # https://discourse.nixos.org/t/how-to-convert-this-nix-shell-file-into-a-buildfhsuserenv/20651/7
           (pkgs.buildFHSUserEnv {
             name = "android-sdk";
             targetPkgs =
