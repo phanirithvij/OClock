@@ -8,7 +8,6 @@ let
         });
       })
     ];
-
   };
 in
 pkgs.mkShell {
